@@ -72,6 +72,7 @@
                                     </div>
                                     <?= form_open_multipart(''); ?>
                                     <div class="modal-body">
+                                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                                         <input type="hidden" name="id" value="<?= $kg['id_jadwal']; ?>">
                                         <input type="hidden" name="materi" value="<?= $kg['materi']; ?>">
                                         <div class="mb-3">

@@ -12,6 +12,7 @@ class Admin extends CI_Controller
 
         is_logged_in();
         cek_admin();
+        time_login();
     }
 
     public function index()
@@ -28,6 +29,7 @@ class Admin extends CI_Controller
     // start of manage guru
     public function guru()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['judul'] = "Kelola Guru";
@@ -62,6 +64,7 @@ class Admin extends CI_Controller
     }
     public function tambah_guru()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
@@ -95,6 +98,7 @@ class Admin extends CI_Controller
     }
     public function edit_guru($id)
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
@@ -145,6 +149,7 @@ class Admin extends CI_Controller
     // start of manage mata pelajaran
     public function mapel()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] =  $this->Admin_model->getAllMapel();
@@ -194,6 +199,7 @@ class Admin extends CI_Controller
     // start of manage siswa
     public function siswa()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
 
@@ -228,6 +234,7 @@ class Admin extends CI_Controller
     }
     public function tambah_siswa()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['judul'] = "Kelola Siswa";
@@ -266,6 +273,7 @@ class Admin extends CI_Controller
     }
     public function edit_siswa($id)
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['judul'] = "Kelola Guru";
@@ -322,6 +330,7 @@ class Admin extends CI_Controller
     // start of manage class
     public function jadwal_kelas()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
@@ -358,6 +367,7 @@ class Admin extends CI_Controller
     }
     public function tambah_kelas()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
@@ -404,7 +414,8 @@ class Admin extends CI_Controller
     public function guruDetail()
     {
         $postData = $this->input->post('mapel');
-        $data = $this->Admin_model->guruDetail($postData);
+        $data['data'] = $this->Admin_model->guruDetail($postData);
+        $data['valC'] = $this->security->get_csrf_hash();
 
         echo json_encode($data);
     }

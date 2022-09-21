@@ -5,6 +5,7 @@
     <div class="row justify-content-between mb-3">
         <div class="col-md-5 col-sm-12 mb-3">
             <form action="" method="post" class="input-group">
+                <input type="hidden" id="csrf" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <select class="form-select" name="keyword">
                     <option value="">Semua Kelas</option>
                     <?php foreach ($kelases as $kls) : ?>
@@ -38,6 +39,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="" method="post">
+                        <input type="hidden" id="csrf<?= $kls['nama_kls']; ?>" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="modal-body">
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="nama_kls" name="nama_kls" value="<?= $kls['nama_kls']; ?>" readonly>

@@ -79,3 +79,12 @@ function time_login()
         $ci->session->set_userdata('expired', time() + 900);
     }
 }
+function csrf()
+{
+    $ci = get_instance();
+
+    return $csrf = array(
+        'name' => $ci->security->get_csrf_token_name(),
+        'hash' => $ci->security->get_csrf_hash()
+    );
+}

@@ -3,18 +3,20 @@
     <h4 class="text-center mb-3">Daftar Siswa</h4>
     <?= $this->session->flashdata('flash'); ?>
     <div class="row justify-content-between">
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-5 col-sm-12 mb-3">
             <a href="<?= base_url('admin/tambah_siswa'); ?>" class="btn btn-primary">Tambah Siswa</a>
         </div>
         <div class="col-md-5 col-sm-12">
             <form action="" method="post" class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cari Data Akun" name="keyword" value="<?= $this->session->userdata('keyword'); ?>" id="search">
+                <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <!-- <button class="btn btn-primary" type="submit">Cari</button> -->
                 <input class="btn btn-primary" type="submit" name="submit" value="Cari" id="button">
             </form>
             <?php if ($this->session->userdata('keyword') != '') { ?>
                 <form action="" method="post">
                     <input type="hidden" name="keyword" value="">
+                    <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                     <!-- <button class="btn btn-primary" type="submit">Cari</button> -->
                     <input class="btn btn-danger" type="submit" name="submit" value="Batal Cari">
                 </form>

@@ -10,6 +10,7 @@
                     <div class="h5 text-center mb-4 mt-2 fw-bold">Selamat Datang</div>
                     <?= $this->session->flashdata('flash'); ?>
                     <form action="<?= base_url('auth'); ?>" method="post">
+                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="mb-3">
                             <input type="text" class="form-control px-3 py-2 rounded-5" id="email" name="email" placeholder="Masukkan Email Anda...">
                             <?= form_error('email', '<p class="m-0 form-text text-danger text-center">', '</p>'); ?>

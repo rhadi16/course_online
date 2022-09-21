@@ -5,6 +5,7 @@
                 <h5 class="card-header">Form Edit Siswa</h5>
                 <div class="card-body">
                     <form action="" method="post">
+                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <input type="hidden" name="id_lama" value="<?= $detail['id_siswa']; ?>">
                         <div class="mb-3">
                             <label for="id" class="form-label">ID</label>

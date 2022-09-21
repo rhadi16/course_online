@@ -18,6 +18,7 @@
                 <div class="col-md-7 col-sm-12">
                     <div class="card-body">
                         <?= form_open_multipart('siswa/edit'); ?>
+                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <input type="hidden" name="id" value="<?= $profile['id']; ?>">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>

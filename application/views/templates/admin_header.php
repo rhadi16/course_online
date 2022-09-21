@@ -29,12 +29,12 @@
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div>
+            <div class="h-90">
                 <a href="#" class="nav_logo">
                     <i class="fa-solid fa-school nav_logo-icon"></i>
                     <span class="nav_logo-name fs-4">Course</span>
                 </a>
-                <div class="nav_list">
+                <div class="nav_list h-80 overflow-auto">
                     <a href="<?= base_url('admin') ?>" class="nav_link <?php if ($judul == "Home") {
                                                                             echo "active";
                                                                         } ?>">
@@ -66,6 +66,9 @@
                         <span class="nav_name fs-6">Kelola Siswa</span>
                     </a>
                 </div>
-            </div> <a class="nav_link" id="logout" onclick="logout('<?= base_url('auth/logout'); ?>')"><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </div>
+            <div class="h-10">
+                <a class="nav_link nav_icon" id="logout" onclick="logout('<?= base_url('auth/logout'); ?>')"><i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Logout</span> </a>
+            </div>
         </nav>
     </div>

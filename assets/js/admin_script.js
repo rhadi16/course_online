@@ -1,30 +1,38 @@
 // detail mapel guru
 function selectGuru(id_mapels) {
-		var id_mapel = $('#id_mapel'+id_mapels).val();
-		$('#detail-guru'+id_mapels).text('');
+	var id_mapel = $('#id_mapel'+id_mapels).val();
+	var csrfName = $('#csrf').attr('name');
+	var csrfHash = $('#csrf').val();
+	console.log(csrfName + ' ' + csrfHash);
+	$('#detail-guru'+id_mapels).text('');
+	$(document).ready(function() {
 		$.ajax({
 			url: base_url,
 			method: 'post',
 			data: {
+				[csrfName]: csrfHash,
 				mapel: id_mapel
 			},
 			dataType: 'json',
 			success: function(rsp) {
-				var len = rsp.length;
+				var len = rsp.data.length;
 				if (len > 0) {
-					rsp.map((gr) => {
+					rsp.data.map((gr) => {
 						$('#detail-guru'+id_mapels).append(`
 						<option value="${gr.id}">${gr.nama}</option>
-					  `);
+						`);
 					});
 				} else {
 					$('#detail-guru'+id_mapels).append('<option selected value="0">Pilih Guru</option>');
 				}
+				$('#csrf').val(rsp.valC);
+				$('#csrf'+id_mapels).val(rsp.valC);
 			},
 			error: function(error) {
 				console.log(error);
 			}
 		});
+	})
 }
 // hapus kelas
 function hapusKelas(nama, url) {

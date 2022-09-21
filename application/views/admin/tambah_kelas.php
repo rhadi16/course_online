@@ -6,6 +6,7 @@
                 <h5 class="card-header text-center">Form Tambah Kelas</h5>
                 <div class="card-body">
                     <form action="" method="post">
+                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="mb-3">
                             <label for="nama_kls" class="form-label">Nama Kelas</label>
                             <input type="text" class="form-control" id="nama_kls" name="nama_kls" value="<?= $input['nama_kls']; ?>">

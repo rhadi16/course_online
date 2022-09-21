@@ -13,6 +13,7 @@
         <div class="card mb-3 mx-auto h-auto col-lg-7 col-md-9 shadow">
             <div class="card-body">
                 <form action="<?= base_url('siswa/settingpassword'); ?>" method="post">
+                    <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                     <input type="hidden" name="id" value="<?= $profile['id']; ?>">
                     <div class="mb-3">
                         <label for="password_lama" class="form-label">Masukkan Password Sekarang</label>

@@ -5,6 +5,7 @@
                 <h5 class="card-header text-center">Form Tambah Guru</h5>
                 <div class="card-body">
                     <form action="" method="post">
+                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="mb-3">
                             <label for="id" class="form-label">ID</label>
                             <input type="text" class="form-control" id="id" name="id" value="<?= $input['id']; ?>">

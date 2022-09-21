@@ -11,6 +11,7 @@ class Siswa extends CI_Controller
 
         is_logged_in();
         cek_siswa();
+        time_login();
     }
 
     public function index()
@@ -27,6 +28,7 @@ class Siswa extends CI_Controller
     }
     public function edit()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
 
@@ -55,6 +57,7 @@ class Siswa extends CI_Controller
     }
     public function settingpassword()
     {
+        $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
 

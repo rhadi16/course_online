@@ -13,6 +13,7 @@ class Auth extends CI_Controller
     public function index()
     {
         is_logged_out();
+        $data['csrf'] = csrf();
         $data['judul'] = "Login";
 
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim', array('required' => 'Email Harus Diisi', 'valid_email' => 'Isi Email dengan Format yang Benar'));
