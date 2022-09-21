@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.4.21-MariaDB - mariadb.org binary distribution
+-- Server version:               10.4.24-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             12.1.0.6537
 -- --------------------------------------------------------
@@ -100,14 +100,16 @@ CREATE TABLE IF NOT EXISTS `ref_mapel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nama_mapel` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table learn.ref_mapel: ~4 rows (approximately)
+-- Dumping data for table learn.ref_mapel: ~6 rows (approximately)
 INSERT INTO `ref_mapel` (`id`, `nama_mapel`) VALUES
 	(1, 'matematika'),
 	(2, 'bahasa indonesia'),
 	(3, 'bahasa inggris'),
-	(4, 'Fisika');
+	(4, 'Fisika'),
+	(5, 'bahasa arab'),
+	(6, 'bahasa spanyol');
 
 -- Dumping structure for table learn.role
 CREATE TABLE IF NOT EXISTS `role` (
@@ -116,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table learn.role: ~2 rows (approximately)
+-- Dumping data for table learn.role: ~3 rows (approximately)
 INSERT INTO `role` (`id`, `role`) VALUES
 	(1, 'admin'),
 	(2, 'guru'),
