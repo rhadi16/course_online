@@ -13,7 +13,7 @@
 <script>
     const url = "<?= base_url('auth/logout'); ?>";
 </script>
-<script src="<?= base_url(); ?>assets/js/guru-script.js"></script>
+<script src="<?= base_url(); ?>assets/js/mentor-script.js"></script>
 </body>
 
 </html>

@@ -28,8 +28,8 @@
     <?php endif; ?>
     <?php foreach ($kelas as $kls) : ?>
         <h5 class="text-center">Kelas <?= $kls['nama_kls']; ?></h5>
-        <a class="badge text-bg-success pointer" data-bs-toggle="modal" data-bs-target="#tambah-mapel-kls<?= $kls['nama_kls']; ?>">Tambah Mata Pelajaran</a>
-        <a class="badge text-bg-danger pointer" onclick="hapusKelas('<?= $kls['nama_kls']; ?>', '<?= base_url('admin/hapus_kelas/') . $kls['nama_kls']; ?>')">Hapus Kelas</a>
+        <a class="badge text-bg-success pointer fw-normal text-break" data-bs-toggle="modal" data-bs-target="#tambah-mapel-kls<?= $kls['nama_kls']; ?>">Tambah Mata <br> Pelajaran</a>
+        <a class="badge text-bg-danger pointer fw-normal text-break" onclick="hapusKelas('<?= $kls['nama_kls']; ?>', '<?= base_url('admin/hapus_kelas/') . $kls['nama_kls']; ?>')">Hapus Kelas</a>
         <!-- Modal add jadwal -->
         <div class="modal fade" id="tambah-mapel-kls<?= $kls['nama_kls']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="id_mapel" class="form-label">Nama Mata Pelajaran</label>
-                                <select class="form-select" aria-label="Default select example" name="id_mapel" id="id_mapel<?= $kls['nama_kls']; ?>" onchange="selectGuru('<?= $kls['nama_kls']; ?>')">
+                                <select class="form-select" aria-label="Default select example" name="id_mapel" id="id_mapel<?= $kls['nama_kls']; ?>" onchange="selectMentor1('<?= $kls['nama_kls']; ?>')">
                                     <option selected value="0">Pilih Mata Pelajaran</option>
                                     <?php foreach ($mapel as $m) : ?>
                                         <option value="<?= $m['id']; ?>"><?= $m['nama_mapel']; ?></option>
@@ -79,11 +79,11 @@
                                 <div class="form-text text-danger"><?= form_error('jam_keluar'); ?></div>
                             </div>
                             <div class="mb-3">
-                                <label for="detail_guru" class="form-label">Nama Guru</label>
-                                <select class="form-select" aria-label="Default select example" name="id_guru" id="detail-guru<?= $kls['nama_kls']; ?>">
-                                    <option selected value="0">Pilih Guru</option>
+                                <label for="detail_mentor" class="form-label">Nama Mentor</label>
+                                <select class="form-select" aria-label="Default select example" name="id_mentor" id="detail-mentor<?= $kls['nama_kls']; ?>">
+                                    <option selected value="0">Pilih Mentor</option>
                                 </select>
-                                <div class="form-text text-danger"><?= form_error('id_guru'); ?></div>
+                                <div class="form-text text-danger"><?= form_error('id_mentor'); ?></div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -95,189 +95,42 @@
             </div>
         </div>
         <!-- end add jadwal -->
-        <div class="row justify-content-center mt-3 mb-4">
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Senin</h5>
-                        <?php $seninJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Senin'); ?>
-                        <?php if (empty($seninJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($seninJadwal as $senj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $senj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $senj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $senj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($senj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($senj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $senj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+        <div class="row justify-content-center mt-3 mb-5">
+            <?php foreach ($hari as $h) : ?>
+                <div class="col-sm-6 col-md-4 col-lg-3 mb-3 mt-3">
+                    <div class="card shadow position-relative">
+                        <div class="card-body text-center pt-4">
+                            <div class="card position-absolute rounded-4 header-hari text-white">
+                                <div class="card-body pt-2 pb-2 ps-3 pe-3">
+                                    <h5 class="fs-6 mb-0" id="hari"><?= $h; ?></h5>
+                                </div>
+                            </div>
+                            <?php $Jadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], $h); ?>
+                            <?php if (empty($Jadwal)) : ?>
+                                <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
+                            <?php endif; ?>
+                            <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
+                                <tbody>
+                                    <?php foreach ($Jadwal as $j) : ?>
+                                        <tr class="border border-bottom-0">
+                                            <th scope="row" class="text-break">
+                                                <a class="link-danger pointer" onclick="hapusJadwal('<?= $j['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $j['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a>
+                                                <?= $j['nama_mapel']; ?>
+                                            </th>
+                                            <td><?= date('H:i', strtotime($j['jam_masuk'])); ?></td>
+                                            <td>-</td>
+                                            <td><?= date('H:i', strtotime($j['jam_keluar'])); ?></td>
+                                        </tr>
+                                        <tr class="border border-top-0">
+                                            <th colspan="4" scope="row" class="text-break"><?= $j['nama']; ?></th>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Selasa</h5>
-                        <?php $selasaJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Selasa'); ?>
-                        <?php if (empty($selasaJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($selasaJadwal as $selj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $selj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $selj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $selj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($selj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($selj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $selj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Rabu</h5>
-                        <?php $rabuJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Rabu'); ?>
-                        <?php if (empty($rabuJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($rabuJadwal as $rabj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $rabj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $rabj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $rabj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($rabj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($rabj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $rabj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Kamis</h5>
-                        <?php $kamisJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Kamis'); ?>
-                        <?php if (empty($kamisJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($kamisJadwal as $kamj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $kamj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $kamj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $kamj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($kamj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($kamj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $kamj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Jumat</h5>
-                        <?php $jumatJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Jumat'); ?>
-                        <?php if (empty($jumatJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($jumatJadwal as $jumj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $jumj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $jumj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $jumj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($jumj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($jumj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $jumj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Sabtu</h5>
-                        <?php $sabtuJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Sabtu'); ?>
-                        <?php if (empty($sabtuJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($sabtuJadwal as $sabj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $sabj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $sabj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $sabj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($sabj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($sabj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $sabj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
-                <div class="card shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title fw-bold fs-6" id="hari">Minggu</h5>
-                        <?php $mingguJadwal = $this->Admin_model->getDetailJadwal($kls['nama_kls'], 'Minggu'); ?>
-                        <?php if (empty($mingguJadwal)) : ?>
-                            <span class="fw-normal size-08 text-danger">Jadwal Belum Ada</span>
-                        <?php endif; ?>
-                        <table class="table table-sm align-middle table-jadwal mx-auto table-borderless mb-0">
-                            <tbody>
-                                <?php foreach ($mingguJadwal as $minj) : ?>
-                                    <tr class="border border-bottom-0">
-                                        <th scope="row" class="text-break"><a class="link-danger pointer" onclick="hapusJadwal('<?= $minj['nama_mapel']; ?>', '<?= base_url('admin/hapus_jadwal/') . $minj['id_kls']; ?>')"><i class="fa-solid fa-trash"></i></a> <?= $minj['nama_mapel']; ?></th>
-                                        <td><?= date('H:i', strtotime($minj['jam_masuk'])); ?></td>
-                                        <td>-</td>
-                                        <td><?= date('H:i', strtotime($minj['jam_keluar'])); ?></td>
-                                    </tr>
-                                    <tr class="border border-top-0">
-                                        <th colspan="4" scope="row" class="text-break"><?= $minj['nama']; ?></th>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     <?php endforeach; ?>
 </div>

@@ -55,12 +55,17 @@ body {
 .pointer {
     cursor: pointer;
 }
+
 .table-jadwal tr td,
 .table-jadwal tr th,
 .size-08 {
     font-size: 0.8rem;
 }
-  
+.header-hari {
+    background-image: linear-gradient(195deg,#49a3f1,#1a73e8);
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(0,188,212,.4)!important;
+    margin-top: -43px;
+}
 /* for main section */
 .active-cont {
     margin-left: 250px;

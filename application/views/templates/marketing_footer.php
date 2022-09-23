@@ -6,11 +6,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Sweet Alert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
+<!-- Datatable -->
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <!-- Custome js -->
 <script>
     const url = "<?= base_url('auth/logout'); ?>";
 </script>
-<script src="<?= base_url(); ?>assets/js/siswa-script.js"></script>
+<script src="<?= base_url(); ?>assets/js/marketing-script.js"></script>
 </body>
 
 </html>

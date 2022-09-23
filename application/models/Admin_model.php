@@ -3,10 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_model
 {
-    // start of Guru Models
-    public function getAllGuru($number, $offset, $keyword = null)
+    // start of mentor Models
+    public function getAllMentor($number, $offset, $keyword = null)
     {
-        $this->db->select('*, profile.id id_guru');
+        $this->db->select('*, profile.id id_mentor');
         $this->db->where('profile.id !=', 1234);
         $this->db->where('profile.role_id =', 2);
         $this->db->join('role', 'role.id = profile.role_id', 'left');
@@ -17,7 +17,7 @@ class Admin_model extends CI_model
 
         return $this->db->get('profile', $number, $offset)->result_array();
     }
-    public function tambahGuru()
+    public function tambahMentor()
     {
         $account = array(
             'id' => $this->input->post('id', true),
@@ -27,10 +27,11 @@ class Admin_model extends CI_model
             'date_created' => date("Y-m-d H:i:s")
         );
 
-        $data_guru = array(
+        $data_mentor = array(
             'id' => $this->input->post('id', true),
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
             'tglahir' => $this->input->post('tglahir', true),
             'image' => 'not.jpg',
             'role_id' => 2,
@@ -38,17 +39,17 @@ class Admin_model extends CI_model
 
         $jum_mapel = $this->input->post('mapel', true);
         for ($i = 0; $i < count($jum_mapel); $i++) {
-            $mapel_guru = array(
+            $mapel_mentor = array(
                 'id' => $this->input->post('id', true),
                 'mapel' => $this->input->post('mapel', true)[$i]
             );
-            $this->db->insert('guru', $mapel_guru);
+            $this->db->insert('mentor', $mapel_mentor);
         }
 
-        $this->db->insert('profile', $data_guru);
+        $this->db->insert('profile', $data_mentor);
         $this->db->insert('accounts', $account);
     }
-    public function editGuru()
+    public function editMentor()
     {
         $dt_lama = $this->db->get_where('accounts', ['id' => $this->input->post('id_lama', true)])->row_array();
 
@@ -65,54 +66,55 @@ class Admin_model extends CI_model
             'is_active' => 1
         );
 
-        $data_guru = array(
+        $data_mentor = array(
             'id' => $this->input->post('id', true),
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
             'tglahir' => $this->input->post('tglahir', true)
         );
 
         $this->db->where('id', $this->input->post('id_lama', true));
-        $this->db->delete('guru');
+        $this->db->delete('mentor');
 
         $jum_mapel = $this->input->post('mapel', true);
         for ($i = 0; $i < count($jum_mapel); $i++) {
-            $mapel_guru = array(
+            $mapel_mentor = array(
                 'id' => $this->input->post('id', true),
                 'mapel' => $this->input->post('mapel', true)[$i]
             );
-            $this->db->insert('guru', $mapel_guru);
+            $this->db->insert('mentor', $mapel_mentor);
         }
 
         $this->db->where('id', $this->input->post('id_lama'));
-        $this->db->update('profile', $data_guru);
+        $this->db->update('profile', $data_mentor);
 
         $this->db->where('id', $this->input->post('id_lama'));
         $this->db->update('accounts', $account);
     }
-    public function mapelGuru($id)
+    public function mapelMentor($id)
     {
         $this->db->select('*');
         $this->db->where('a.id', $id);
 
         $this->db->join('ref_mapel b', 'b.id = a.mapel', 'left');
-        return $this->db->get('guru a')->result_array();
+        return $this->db->get('mentor a')->result_array();
     }
-    public function kelasGuru($id_guru)
+    public function kelasMentor($id_mentor)
     {
         $this->db->select('*, a.id id_jadwal');
-        $this->db->where('a.id_guru', $id_guru);
+        $this->db->where('a.id_mentor', $id_mentor);
 
         $this->db->join('ref_mapel b', 'b.id = a.id_mapel', 'left');
         return $this->db->get('jadwal a')->result_array();
     }
-    public function detailMapelGuru($id, $mapel)
+    public function detailMapelMentor($id, $mapel)
     {
-        return $this->db->get_where('guru', ['id' => $id, 'mapel' => $mapel])->result_array();
+        return $this->db->get_where('mentor', ['id' => $id, 'mapel' => $mapel])->result_array();
     }
-    public function detailGuru($id)
+    public function detailMentor($id)
     {
-        $this->db->select('*, profile.id id_guru');
+        $this->db->select('*, profile.id id_mentor');
         $this->db->where('profile.id =', $id);
         $this->db->where('profile.role_id =', 2);
         $this->db->join('role', 'role.id = profile.role_id', 'left');
@@ -120,7 +122,7 @@ class Admin_model extends CI_model
 
         return $this->db->get('profile')->row_array();
     }
-    public function hapusDataGuru($id)
+    public function hapusDataMentor($id)
     {
         $data = $this->db->get_where('profile', ['id' => $id])->row_array();
         if ($data['image'] != 'not.jpg') {
@@ -131,12 +133,12 @@ class Admin_model extends CI_model
         $this->db->delete('accounts');
 
         $this->db->where('id', $id);
-        $this->db->delete('guru');
+        $this->db->delete('mentor');
 
         $this->db->where('id', $id);
         $this->db->delete('profile');
     }
-    // end of guru Model
+    // end of mentor Model
 
     // start of mapel model
     public function getAllMapel()
@@ -162,10 +164,10 @@ class Admin_model extends CI_model
     }
     // end mapel model
 
-    // start siswa model
-    public function getAllSiswa($number, $offset, $keyword = null)
+    // start marketing model
+    public function getAllMarketing($number, $offset, $keyword = null)
     {
-        $this->db->select('*, profile.id id_siswa');
+        $this->db->select('*, profile.id id_marketing');
         $this->db->where('profile.id !=', 1234);
         $this->db->where('profile.role_id =', 3);
         $this->db->join('role', 'role.id = profile.role_id', 'left');
@@ -176,7 +178,7 @@ class Admin_model extends CI_model
 
         return $this->db->get('profile', $number, $offset)->result_array();
     }
-    public function tambahSiswa()
+    public function tambahMarketing()
     {
         $account = array(
             'id' => $this->input->post('id', true),
@@ -186,27 +188,28 @@ class Admin_model extends CI_model
             'date_created' => date("Y-m-d H:i:s")
         );
 
-        $data_siswa = array(
+        $data_marketing = array(
             'id' => $this->input->post('id', true),
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
             'tglahir' => $this->input->post('tglahir', true),
             'image' => 'not.jpg',
             'role_id' => 3,
         );
 
-        $kls_siswa = array(
+        $stat_marketing = array(
             'id' => $this->input->post('id', true),
-            'kelas' => $this->input->post('kelas', true)
+            'status' => $this->input->post('status', true)
         );
 
-        $this->db->insert('profile', $data_siswa);
+        $this->db->insert('profile', $data_marketing);
         $this->db->insert('accounts', $account);
-        $this->db->insert('siswa', $kls_siswa);
+        $this->db->insert('marketing', $stat_marketing);
     }
-    public function detailSiswa($id)
+    public function detailMarketing($id)
     {
-        $this->db->select('*, profile.id id_siswa');
+        $this->db->select('*, profile.id id_marketing');
         $this->db->where('profile.id =', $id);
         $this->db->where('profile.role_id =', 3);
         $this->db->join('role', 'role.id = profile.role_id', 'left');
@@ -214,7 +217,7 @@ class Admin_model extends CI_model
 
         return $this->db->get('profile')->row_array();
     }
-    public function editSiswa()
+    public function editMarketing()
     {
         $dt_lama = $this->db->get_where('accounts', ['id' => $this->input->post('id_lama', true)])->row_array();
 
@@ -231,32 +234,29 @@ class Admin_model extends CI_model
             'is_active' => 1
         );
 
-        $data_siswa = array(
+        $data_marketing = array(
             'id' => $this->input->post('id', true),
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
             'tglahir' => $this->input->post('tglahir', true)
         );
 
-        $kls_siswa = array(
-            // 'id' => $this->input->post('id', true),
-            'kelas' => $this->input->post('kelas', true)
+        $stat_marketing = array(
+            'id' => $this->input->post('id', true),
+            'status' => $this->input->post('status', true)
         );
 
         $this->db->where('id', $this->input->post('id_lama'));
-        $this->db->update('profile', $data_siswa);
+        $this->db->update('profile', $data_marketing);
 
         $this->db->where('id', $this->input->post('id_lama'));
         $this->db->update('accounts', $account);
 
         $this->db->where('id', $this->input->post('id_lama'));
-        $this->db->update('siswa', $kls_siswa);
-        // $this->db->where('id', $this->input->post('id_lama'));
-        // $this->db->delete('siswa');
-
-        // $this->db->insert('siswa', $kls_siswa);
+        $this->db->update('marketing', $stat_marketing);
     }
-    public function hapusDataSiswa($id)
+    public function hapusDataMarketing($id)
     {
         $data = $this->db->get_where('profile', ['id' => $id])->row_array();
         if ($data['image'] != 'not.jpg') {
@@ -268,15 +268,18 @@ class Admin_model extends CI_model
 
         $this->db->where('id', $id);
         $this->db->delete('profile');
+
+        $this->db->where('id', $id);
+        $this->db->delete('marketing');
     }
-    public function kelasSiswa($id_siswa)
+    public function statusMarketing($id_marketing)
     {
         $this->db->select('*');
-        $this->db->where('a.id', $id_siswa);
+        $this->db->where('a.id', $id_marketing);
 
-        return $this->db->get('siswa a')->result_array();
+        return $this->db->get('marketing a')->result_array();
     }
-    // end siswa model
+    // end marketing model
 
     // start jadwal model
     public function getKelas()
@@ -302,26 +305,26 @@ class Admin_model extends CI_model
     {
         $this->db->select('*, jadwal.id id_kls');
         $this->db->join('ref_mapel', 'ref_mapel.id = jadwal.id_mapel', 'left');
-        $this->db->join('profile', 'profile.id = jadwal.id_guru', 'left');
+        $this->db->join('profile', 'profile.id = jadwal.id_mentor', 'left');
         $this->db->where('nama_kls =', $nama_kls);
         $this->db->where('hari =', $hari);
         $this->db->order_by('jam_masuk', 'ASC');
 
         return $this->db->get('jadwal')->result_array();
     }
-    public function guruDetail($id_mapel = 0)
+    public function mentorDetail($id_mapel = 0)
     {
         $this->db->distinct();
         $this->db->select('*');
-        $this->db->join('profile', 'profile.id = guru.id', 'left');
+        $this->db->join('profile', 'profile.id = mentor.id', 'left');
         $this->db->where('mapel =', $id_mapel);
-        $this->db->group_by("guru.id");
+        $this->db->group_by("mentor.id");
 
-        return $this->db->get('guru')->result_array();
+        return $this->db->get('mentor')->result_array();
     }
     public function tambahKelas()
     {
-        $cek_jadwal = $this->db->get_where('jadwal', ['hari' => $this->input->post('hari', true), 'jam_masuk' => $this->input->post('jam_masuk', true), 'jam_keluar' => $this->input->post('jam_keluar', true), 'id_guru' => $this->input->post('id_guru', true)])->row_array();
+        $cek_jadwal = $this->db->get_where('jadwal', ['hari' => $this->input->post('hari', true), 'jam_masuk' => $this->input->post('jam_masuk', true), 'jam_keluar' => $this->input->post('jam_keluar', true), 'id_mentor' => $this->input->post('id_mentor', true)])->row_array();
 
         if (!$cek_jadwal) {
             $kelas = array(
@@ -330,7 +333,7 @@ class Admin_model extends CI_model
                 'hari' => $this->input->post('hari', true),
                 'jam_masuk' => $this->input->post('jam_masuk', true),
                 'jam_keluar' => $this->input->post('jam_keluar', true),
-                'id_guru' => $this->input->post('id_guru', true)
+                'id_mentor' => $this->input->post('id_mentor', true)
             );
 
             $this->db->insert('jadwal', $kelas);
@@ -343,7 +346,7 @@ class Admin_model extends CI_model
     }
     public function tambahJadwal()
     {
-        $cek_jadwal = $this->db->get_where('jadwal', ['hari' => $this->input->post('hari', true), 'jam_masuk' => $this->input->post('jam_masuk', true), 'jam_keluar' => $this->input->post('jam_keluar', true), 'id_guru' => $this->input->post('id_guru', true)])->row_array();
+        $cek_jadwal = $this->db->get_where('jadwal', ['hari' => $this->input->post('hari', true), 'jam_masuk' => $this->input->post('jam_masuk', true), 'jam_keluar' => $this->input->post('jam_keluar', true), 'id_mentor' => $this->input->post('id_mentor', true)])->row_array();
 
         if (!$cek_jadwal) {
             $cek_jadwal2 = $this->db->get_where('jadwal', ['hari' => $this->input->post('hari', true), 'jam_masuk' => $this->input->post('jam_masuk', true), 'jam_keluar' => $this->input->post('jam_keluar', true)])->row_array();
@@ -355,7 +358,7 @@ class Admin_model extends CI_model
                     'hari' => $this->input->post('hari', true),
                     'jam_masuk' => $this->input->post('jam_masuk', true),
                     'jam_keluar' => $this->input->post('jam_keluar', true),
-                    'id_guru' => $this->input->post('id_guru', true)
+                    'id_mentor' => $this->input->post('id_mentor', true)
                 );
 
                 $this->db->insert('jadwal', $kelas);
@@ -383,5 +386,35 @@ class Admin_model extends CI_model
     {
         $this->db->where('nama_kls', $nama_kls);
         $this->db->delete('jadwal');
+    }
+    // end jadwal model
+
+    // start santri model
+    public function getAllSantri($number, $offset, $keyword = null)
+    {
+        $this->db->select('*');
+        $this->db->where('nama_kls !=', null);
+        if ($keyword) {
+            $this->db->like('nama', $keyword);
+            $this->db->or_like('program', $keyword);
+        }
+
+        return $this->db->get('santri', $number, $offset)->result_array();
+    }
+    public function getAllSantriBaru($number, $offset, $keyword = null)
+    {
+        $this->db->select('*');
+        $this->db->where('nama_kls =', null);
+        if ($keyword) {
+            $this->db->like('nama', $keyword);
+            $this->db->or_like('program', $keyword);
+        }
+
+        return $this->db->get('santri', $number, $offset)->result_array();
+    }
+    public function editKelasSantriBaru()
+    {
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('santri', ['nama_kls' => $this->input->post('nama_kls')]);
     }
 }

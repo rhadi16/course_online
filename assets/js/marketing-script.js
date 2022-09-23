@@ -14,6 +14,11 @@ $("#logout").on("click", function () {
 	});
 });
 
+// set datatable
+$(document).ready(function () {
+    $('#list-santri').DataTable();
+});
+
 var menu_btn = document.querySelector("#menu-btn");
 var sidebar = document.querySelector("#sidebar");
 var container = document.querySelector(".my-container");

@@ -9,10 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <!-- BOX ICONS CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Datatable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <!-- Font Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Viga&display=swap" rel="stylesheet">
     <!-- custom css -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/siswa-style.css'); ?>" />
+    <link rel="stylesheet" href="<?= base_url('assets/css/marketing-style.css'); ?>" />
 </head>
 
 <body>
@@ -24,7 +26,7 @@
                     <div class="img-round-profile w-100 h-100 rounded-circle" style="background-image: url('<?= base_url('assets/img-profile/') . $profile['image']; ?>')"></div>
                 </div>
                 <div class="col-12 h3 mt-2">
-                    <a href="<?= base_url('siswa'); ?>" class="text-white my-2 text-capitalize text-decoration-none fs-4">
+                    <a href="<?= base_url('marketing'); ?>" class="text-white my-2 text-capitalize text-decoration-none fs-4">
                         <?= $profile['nama']; ?>
                     </a>
                 </div>
@@ -32,7 +34,7 @@
             <li class="nav-link p-0 <?php if ($judul == "Home") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('siswa'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('marketing'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-home"></i>
                     <span class="mx-2">Home</span>
                 </a>
@@ -40,7 +42,7 @@
             <li class="nav-link p-0 <?php if ($judul == "My Profile") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('siswa/edit'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('marketing/edit'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-user-circle"></i>
                     <span class="mx-2">My Profile</span>
                 </a>
@@ -48,17 +50,17 @@
             <li class="nav-link p-0 <?php if ($judul == "Setting Password") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('siswa/settingpassword'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('marketing/settingpassword'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-key"></i>
                     <span class="mx-2">Setting Password</span>
                 </a>
             </li>
-            <li class="nav-link p-0 <?php if ($judul == "Jadwal Kelas") {
+            <li class="nav-link p-0 <?php if ($judul == "Kelola Santri") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('siswa/jadwal_kelas'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
-                    <i class="fa-solid fa-list"></i>
-                    <span class="mx-2">Jadwal Kelas</span>
+                <a href="<?= base_url('marketing/santri'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span class="mx-2">Kelola Santri</span>
                 </a>
             </li>
             <li class="nav-link p-0">

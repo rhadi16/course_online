@@ -6,7 +6,7 @@
                 <h5 class="card-header text-center">Form Tambah Kelas</h5>
                 <div class="card-body">
                     <form action="" method="post">
-                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
+                        <input type="hidden" id="csrf" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <div class="mb-3">
                             <label for="nama_kls" class="form-label">Nama Kelas</label>
                             <input type="text" class="form-control" id="nama_kls" name="nama_kls" value="<?= $input['nama_kls']; ?>">
@@ -14,7 +14,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="id_mapel" class="form-label">Nama Mata Pelajaran</label>
-                            <select class="form-select" aria-label="Default select example" name="id_mapel" id="id_mapel">
+                            <select class="form-select" aria-label="Default select example" name="id_mapel" id="id_mapel" onchange="selectMentor()">
                                 <option selected value="0">Pilih Mata Pelajaran</option>
                                 <?php foreach ($mapel as $m) : ?>
                                     <option value="<?= $m['id']; ?>"><?= $m['nama_mapel']; ?></option>
@@ -47,11 +47,11 @@
                             <div class="form-text text-danger"><?= form_error('jam_keluar'); ?></div>
                         </div>
                         <div class="mb-3">
-                            <label for="detail_guru" class="form-label">Nama Guru</label>
-                            <select class="form-select" aria-label="Default select example" name="id_guru" id="detail-guru">
-                                <option selected value="0">Pilih Guru</option>
+                            <label for="detail_mentor" class="form-label">Nama Mentor</label>
+                            <select class="form-select" aria-label="Default select example" name="id_mentor" id="detail-mentor">
+                                <option selected value="0">Pilih Mentor</option>
                             </select>
-                            <div class="form-text text-danger"><?= form_error('id_guru'); ?></div>
+                            <div class="form-text text-danger"><?= form_error('id_mentor'); ?></div>
                         </div>
                         <button type="submit" class="btn btn-primary float-end">Submit</button>
                         <a href="<?= base_url('admin/jadwal_kelas'); ?>" class="btn btn-danger mx-2 float-end">Kembali</a>

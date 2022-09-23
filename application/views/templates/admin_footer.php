@@ -13,7 +13,7 @@
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <!-- My JS -->
 <script>
-    const base_url = '<?= base_url('admin/guruDetail'); ?>'
+    const base_url = '<?= base_url('admin/mentorDetail'); ?>'
 </script>
 <script src="<?= base_url('assets/js/admin_script.js'); ?>"></script>
 </body>

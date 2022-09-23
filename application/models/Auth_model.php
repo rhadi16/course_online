@@ -37,9 +37,9 @@ class Auth_model extends CI_model
                     if ($profile['role_id'] == 1) {
                         redirect('admin');
                     } elseif ($profile['role_id'] == 2) {
-                        redirect('guru');
+                        redirect('mentor');
                     } elseif ($profile['role_id'] == 3) {
-                        redirect('siswa');
+                        redirect('marketing');
                     } else {
                         $this->session->set_flashdata('flash', '<div class="alert alert-danger" role="alert">Role Anda Tidak Jelas!</div>');
                         redirect('auth');

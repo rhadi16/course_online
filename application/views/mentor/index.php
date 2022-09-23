@@ -6,7 +6,7 @@
     </nav>
     <!--End Top Nav -->
     <h3 class="text-dark p-3 h3 text-center">Selamat Datang <?= $profile['nama']; ?>!</h3>
-    <div class="px-3">
+    <div class="px-3 mb-5">
         <div class="card mb-3 mx-auto h-auto col-lg-7 col-md-9 shadow">
             <div class="row g-0">
                 <div class="col-md-6 col-sm-12">
@@ -18,9 +18,9 @@
                         <p class="card-text fs-6"><?= $account['email']; ?></p>
                         <p class="card-text fs-6"><small class="text-muted"><?= date_indo(date('Y-m-d', strtotime($account['date_created']))); ?></small></p>
                         Mata Pelajaran yang Diajarkan<br>
-                        <?php $mGuru = $this->Admin_model->mapelGuru($profile['id']); ?>
-                        <?php foreach ($mGuru as $mg) : ?>
-                            - <?= $mg['nama_mapel']; ?><br>
+                        <?php $mMentor = $this->Admin_model->mapelMentor($profile['id']); ?>
+                        <?php foreach ($mMentor as $mm) : ?>
+                            - <?= $mm['nama_mapel']; ?><br>
                         <?php endforeach; ?>
                     </div>
                 </div>

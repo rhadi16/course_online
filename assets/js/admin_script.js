@@ -1,10 +1,10 @@
-// detail mapel guru
-function selectGuru(id_mapels) {
+// detail mapel mentor
+function selectMentor1(id_mapels) {
 	var id_mapel = $('#id_mapel'+id_mapels).val();
 	var csrfName = $('#csrf').attr('name');
 	var csrfHash = $('#csrf').val();
 	console.log(csrfName + ' ' + csrfHash);
-	$('#detail-guru'+id_mapels).text('');
+	$('#detail-mentor'+id_mapels).text('');
 	$(document).ready(function() {
 		$.ajax({
 			url: base_url,
@@ -18,15 +18,49 @@ function selectGuru(id_mapels) {
 				var len = rsp.data.length;
 				if (len > 0) {
 					rsp.data.map((gr) => {
-						$('#detail-guru'+id_mapels).append(`
+						$('#detail-mentor'+id_mapels).append(`
 						<option value="${gr.id}">${gr.nama}</option>
 						`);
 					});
 				} else {
-					$('#detail-guru'+id_mapels).append('<option selected value="0">Pilih Guru</option>');
+					$('#detail-mentor'+id_mapels).append('<option selected value="0">Pilih Mentor</option>');
 				}
 				$('#csrf').val(rsp.valC);
 				$('#csrf'+id_mapels).val(rsp.valC);
+			},
+			error: function(error) {
+				console.log(error);
+			}
+		});
+	})
+}
+function selectMentor() {
+	var id_mapel = $('#id_mapel').val();
+	var csrfName = $('#csrf').attr('name');
+	var csrfHash = $('#csrf').val();
+	$('#detail-mentor').text('');
+	$(document).ready(function() {
+		$.ajax({
+			url: base_url,
+			method: 'post',
+			data: {
+				[csrfName]: csrfHash,
+				mapel: id_mapel
+			},
+			dataType: 'json',
+			success: function(rsp) {
+				var len = rsp.data.length;
+				if (len > 0) {
+					rsp.data.map((gr) => {
+						$('#detail-mentor').append(`
+						<option value="${gr.id}">${gr.nama}</option>
+						`);
+					});
+				} else {
+					$('#detail-mentor').append('<option selected value="0">Pilih Mentor</option>');
+				}
+				$('#csrf').val(rsp.valC);
+				$('#csrf').val(rsp.valC);
 			},
 			error: function(error) {
 				console.log(error);
@@ -66,11 +100,11 @@ function hapusJadwal(nama, url) {
 		}
 	});
 }
-// hapus siswa
-function hapusSiswa(nama, url) {
+// hapus marketing
+function hapusMarketing(nama, url) {
 	Swal.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus Siswa " + nama,
+		text: "Ingin menghapus Marketing " + nama,
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#d33',
@@ -98,10 +132,7 @@ function hapusMapel(nama, url) {
 		}
 	});
 }
-// set datatable
-$(document).ready(function () {
-    $('#mapel').DataTable();
-});
+
 // logout
 function logout(url) {
 	Swal.fire({
@@ -119,10 +150,10 @@ function logout(url) {
 	});
 }
 // hapus guru
-function hapusGuru(nama, url) {
+function hapusMentor(nama, url) {
 	Swal.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus data guru " + nama,
+		text: "Ingin Menghapus Data Mentor " + nama,
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#d33',

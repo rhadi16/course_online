@@ -55,11 +55,15 @@ body {
 .pointer {
     cursor: pointer;
 }
-
-.text-mapel-guru {
+.text-mapel-santri {
     font-size: 0.8rem;
 }
-  
+.table-jadwal tr td,
+.table-jadwal tr th,
+.size-08 {
+    font-size: 0.8rem;
+}
+
 /* for main section */
 .active-cont {
     margin-left: 250px;

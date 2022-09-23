@@ -11,10 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Font Google -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Viga&display=swap" rel="stylesheet">
-    <!-- Datatable -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <!-- custom css -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/guru-style.css'); ?>" />
+    <link rel="stylesheet" href="<?= base_url('assets/css/mentor-style.css'); ?>" />
 </head>
 
 <body>
@@ -26,7 +24,7 @@
                     <div class="img-round-profile w-100 h-100 rounded-circle" style="background-image: url('<?= base_url('assets/img-profile/') . $profile['image']; ?>')"></div>
                 </div>
                 <div class="col-12 h3 mt-2">
-                    <a href="<?= base_url('guru'); ?>" class="text-white my-2 text-capitalize text-decoration-none fs-4">
+                    <a href="<?= base_url('mentor'); ?>" class="text-white my-2 text-capitalize text-decoration-none fs-4">
                         <?= $profile['nama']; ?>
                     </a>
                 </div>
@@ -34,7 +32,7 @@
             <li class="nav-link p-0 <?php if ($judul == "Home") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('guru'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('mentor'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-home"></i>
                     <span class="mx-2">Home</span>
                 </a>
@@ -42,7 +40,7 @@
             <li class="nav-link p-0 <?php if ($judul == "My Profile") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('guru/edit'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('mentor/edit'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-user-circle"></i>
                     <span class="mx-2">My Profile</span>
                 </a>
@@ -50,17 +48,17 @@
             <li class="nav-link p-0 <?php if ($judul == "Setting Password") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('guru/settingpassword'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('mentor/settingpassword'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fas fa-key"></i>
                     <span class="mx-2">Setting Password</span>
                 </a>
             </li>
-            <li class="nav-link p-0 <?php if ($judul == "Kelola Kelas") {
+            <li class="nav-link p-0 <?php if ($judul == "Jadwal Mengajar") {
                                         echo "active";
                                     } ?>">
-                <a href="<?= base_url('guru/kelola_kelas'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
+                <a href="<?= base_url('mentor/jadwal_mengajar'); ?>" class="text-decoration-none text-white w-100 d-inline-block px-3 py-2">
                     <i class="fa-solid fa-graduation-cap"></i>
-                    <span class="mx-2">Kelola Kelas</span>
+                    <span class="mx-2">Jadwal Mengajar</span>
                 </a>
             </li>
             <li class="nav-link p-0">

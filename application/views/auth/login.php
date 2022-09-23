@@ -1,9 +1,9 @@
 <div class="container">
     <div class="card mb-3 col-md-9 col-sm-12 col-lg-8 mx-auto shadow mt-5">
-        <div class="row g-0">
-            <div class="col-md-4 parent-login">
-                <!-- <img src="<?= base_url('assets/img-login/bg.jpg'); ?>" class="img-fluid rounded-start" alt="..."> -->
-                <div class="rounded w-100 h-100 img-login" style="background-image: url('<?= base_url('assets/img-login/bg.jpg'); ?>');"></div>
+        <div class="row g-0 align-items-center">
+            <div class="col-md-4 parent-login p-2 text-center">
+                <img src="<?= base_url('assets/img-login/kaffah.png'); ?>" class="img-fluid" alt="...">
+                <!-- <div class="rounded w-100 h-100 img-login" style="background-image: url('<?= base_url('assets/img-login/bg.jpg'); ?>');"></div> -->
             </div>
             <div class="col-md-8">
                 <div class="card-body">

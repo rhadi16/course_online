@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Guru_model extends CI_model
+class Marketing_model extends CI_model
 {
     public function editProfile($old_image = '')
     {
-        $data_guru = array(
+        $data_marketing = array(
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
             'tglahir' => $this->input->post('tglahir', true)
         );
         // cek jika ada gambar yang akan diupload
@@ -42,18 +43,10 @@ class Guru_model extends CI_model
         $this->session->set_userdata($dt_sess);
 
         $this->db->where('id', $this->input->post('id'));
-        $this->db->update('profile', $data_guru);
+        $this->db->update('profile', $data_marketing);
 
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('accounts', ['email' => $this->input->post('email', true)]);
-    }
-    public function hapusMateri($materi)
-    {
-        $this->db->where('materi', $materi);
-        $this->db->update('jadwal', [
-            'materi' => null
-        ]);
-        unlink(FCPATH . 'assets/materi/' . $materi);
     }
     public function settingpassword($password_baru = null)
     {
@@ -61,31 +54,22 @@ class Guru_model extends CI_model
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('accounts');
     }
-    public function editJadwal()
+    public function listSantri()
     {
-        // cek jika ada file yang akan diupload
-        $upload_file = $_FILES['materi']['name'];
+        return $this->db->get('santri')->result_array();
+    }
+    public function tambahSantri()
+    {
+        $data_santri = array(
+            'id' => $this->input->post('id', true),
+            'nama' => $this->input->post('nama', true),
+            'asal' => $this->input->post('asal', true),
+            'no_hp' => $this->input->post('no_hp', true),
+            'tglahir' => $this->input->post('tglahir', true),
+            'jkl' => $this->input->post('jkl', true),
+            'program' => $this->input->post('program', true)
+        );
 
-        if ($upload_file) {
-            $config['allowed_types'] = 'gif|jpg|jpeg|png|zip|rar|doc|docx|xls|xlsx|ppt|pptx|csv|pdf|txt|avi|mpeg|mp3|mp4|3gp';
-            $config['max_size']     = '20000000';
-            $config['upload_path'] = './assets/materi';
-
-            $this->load->library('upload', $config);
-
-            if ($this->upload->do_upload('materi')) {
-                unlink(FCPATH . 'assets/materi/' . $this->input->post('materi'));
-                $new_file = $this->upload->data('file_name');
-                $this->db->set('materi', $new_file);
-            } else {
-                $this->upload->display_errors();
-            }
-        }
-
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update('jadwal', [
-            'link_kls' => $this->input->post('link_kls'),
-            'link_meet' => $this->input->post('link_meet')
-        ]);
+        $this->db->insert('santri', $data_santri);
     }
 }

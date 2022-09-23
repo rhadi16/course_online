@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/admin_style.css'); ?>">
 </head>
 
-<body id="body-pd">
+<body id="body-pd" class="bg-gray-200">
     <header class="header mb-3 shadow" id="header">
         <div class="header_toggle">
             <i class='bx bx-menu' id="header-toggle"></i>
@@ -53,17 +53,23 @@
                         <i class="fa-solid fa-list nav_icon"></i>
                         <span class="nav_name fs-6">Kelola Jadwal<br>Kelas</span>
                     </a>
-                    <a href="<?= base_url('admin/guru') ?>" class="nav_link <?php if ($judul == "Kelola Guru") {
-                                                                                echo "active";
-                                                                            } ?>">
-                        <i class="fa-solid fa-person-chalkboard nav_icon"></i>
-                        <span class="nav_name fs-6">Kelola Guru</span>
-                    </a>
-                    <a href="<?= base_url('admin/siswa') ?>" class="nav_link <?php if ($judul == "Kelola Siswa") {
+                    <a href="<?= base_url('admin/mentor') ?>" class="nav_link <?php if ($judul == "Kelola Mentor") {
                                                                                     echo "active";
                                                                                 } ?>">
-                        <i class="fa-solid fa-chalkboard-user nav_icon"></i>
-                        <span class="nav_name fs-6">Kelola Siswa</span>
+                        <i class="fa-solid fa-person-chalkboard nav_icon"></i>
+                        <span class="nav_name fs-6">Kelola Mentor</span>
+                    </a>
+                    <a href="<?= base_url('admin/marketing') ?>" class="nav_link <?php if ($judul == "Kelola Marketing") {
+                                                                                        echo "active";
+                                                                                    } ?>">
+                        <i class="fa-solid fa-money-bill-trend-up nav_icon"></i>
+                        <span class="nav_name fs-6">Kelola Marketing</span>
+                    </a>
+                    <a href="<?= base_url('admin/santri') ?>" class="nav_link <?php if ($judul == "Kelola Santri") {
+                                                                                    echo "active";
+                                                                                } ?>">
+                        <i class="fa-solid fa-user-plus nav_icon"></i>
+                        <span class="nav_name fs-6">Kelola Santri</span>
                     </a>
                 </div>
             </div>

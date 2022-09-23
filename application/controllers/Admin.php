@@ -27,12 +27,12 @@ class Admin extends CI_Controller
         $this->load->view('templates/admin_footer');
     }
     // start of manage guru
-    public function guru()
+    public function mentor()
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
-        $data['judul'] = "Kelola Guru";
+        $data['judul'] = "Kelola Mentor";
 
         if ($this->input->post('submit')) {
             $data['keyword'] = $this->input->post('keyword');
@@ -40,9 +40,9 @@ class Admin extends CI_Controller
         } else {
             $data['keyword'] = $this->session->userdata('keyword');
         }
-        $config['base_url'] = base_url() . 'admin/guru';
+        $config['base_url'] = base_url() . 'admin/mentor';
 
-        $this->db->select('*, profile.id id_guru');
+        $this->db->select('*, profile.id id_mentor');
         $this->db->from('profile');
         $this->db->join('role', 'role.id = profile.role_id', 'left');
         $this->db->join('accounts', 'accounts.id = profile.id', 'left');
@@ -51,28 +51,29 @@ class Admin extends CI_Controller
         $this->db->like('nama', $data['keyword']);
 
         $config['total_rows'] = $this->db->count_all_results();
-        $config['per_page'] = 10;
+        $config['per_page'] = 8;
         $from = $this->uri->segment(3);
 
-        $data['guru'] =  $this->Admin_model->getAllGuru($config['per_page'], $from, $data['keyword']);
+        $data['mentor'] =  $this->Admin_model->getAllMentor($config['per_page'], $from, $data['keyword']);
 
         $this->pagination->initialize($config);
 
         $this->load->view('templates/admin_header', $data);
-        $this->load->view('admin/guru', $data);
+        $this->load->view('admin/mentor', $data);
         $this->load->view('templates/admin_footer');
     }
-    public function tambah_guru()
+    public function tambah_mentor()
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
-        $data['judul'] = "Kelola Guru";
+        $data['judul'] = "Kelola Mentor";
 
         $this->form_validation->set_rules('id', 'ID', 'required|is_unique[accounts.id]|trim', array('required' => 'ID Harus Diisi', 'is_unique' => 'ID Telah Digunakan'));
         $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
         $this->form_validation->set_rules('asal', 'Asal', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[accounts.email]', array('required' => 'Email Harus Diisi', 'valid_email' => 'Isi Email Denga Format yang Benar', 'is_unique' => 'Email Telah Digunakan'));
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password2]', array('required' => 'Password Harus Diisi', 'min_length' => 'Password Harus Lebih 8 Karakter', 'matches' => 'Password Tidak Sama Repeat Password'));
@@ -83,28 +84,29 @@ class Admin extends CI_Controller
                 'id' => $this->input->post('id'),
                 'nama' => $this->input->post('nama'),
                 'asal' => $this->input->post('asal'),
+                'no_hp' => $this->input->post('no_hp'),
                 'tglahir' => $this->input->post('tglahir'),
                 'email' => $this->input->post('email')
             );
 
             $this->load->view('templates/admin_header', $data);
-            $this->load->view('admin/tambah_guru', $data);
+            $this->load->view('admin/tambah_mentor', $data);
             $this->load->view('templates/admin_footer');
         } else {
-            $this->Admin_model->tambahGuru();
-            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Guru Berhasil Ditambahkan.</div>');
-            redirect('admin/guru');
+            $this->Admin_model->tambahMentor();
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Mentor Berhasil Ditambahkan.</div>');
+            redirect('admin/mentor');
         }
     }
-    public function edit_guru($id)
+    public function edit_mentor($id)
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
-        $data['judul'] = "Kelola Guru";
+        $data['judul'] = "Kelola Mentor";
 
-        $data['detail'] = $this->Admin_model->detailGuru($id);
+        $data['detail'] = $this->Admin_model->detailMentor($id);
 
         if ($this->input->post('id') == $id) {
             $this->form_validation->set_rules('id', 'ID', 'required|trim', array('required' => 'ID Harus Diisi'));
@@ -120,6 +122,7 @@ class Admin extends CI_Controller
 
         $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
         $this->form_validation->set_rules('asal', 'Asal', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
         $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|matches[password2]', array('required' => 'Password Harus Diisi', 'min_length' => 'Password Harus Lebih 8 Karakter', 'matches' => 'Password Tidak Sama Repeat Password'));
         $this->form_validation->set_rules('password2', 'Repeat Password', 'trim');
@@ -127,22 +130,22 @@ class Admin extends CI_Controller
         if ($data['detail']) {
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('templates/admin_header', $data);
-                $this->load->view('admin/edit_guru', $data);
+                $this->load->view('admin/edit_mentor', $data);
                 $this->load->view('templates/admin_footer');
             } else {
-                $this->Admin_model->editGuru();
-                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Guru Berhasil Diubah.</div>');
-                redirect('admin/guru');
+                $this->Admin_model->editMentor();
+                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Mentor Berhasil Diubah.</div>');
+                redirect('admin/mentor');
             }
         } else {
-            redirect('admin/guru');
+            redirect('admin/mentor');
         }
     }
-    public function hapus_guru($id)
+    public function hapus_mentor($id)
     {
-        $this->Admin_model->hapusDataGuru($id);
-        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Guru Berhasil Dihapus.</div>');
-        redirect('admin/guru');
+        $this->Admin_model->hapusDataMentor($id);
+        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Mentor Berhasil Dihapus.</div>');
+        redirect('admin/mentor');
     }
     // end of manage guru
 
@@ -196,23 +199,23 @@ class Admin extends CI_Controller
     }
     // end of manage mata pelajaran
 
-    // start of manage siswa
-    public function siswa()
+    // start of manage marketing
+    public function marketing()
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
 
-        $data['judul'] = "Kelola Siswa";
+        $data['judul'] = "Kelola Marketing";
         if ($this->input->post('submit')) {
             $data['keyword'] = $this->input->post('keyword');
             $this->session->set_userdata('keyword', $data['keyword']);
         } else {
             $data['keyword'] = $this->session->userdata('keyword');
         }
-        $config['base_url'] = base_url() . 'admin/siswa';
+        $config['base_url'] = base_url() . 'admin/marketing';
 
-        $this->db->select('*, profile.id id_siswa');
+        $this->db->select('*, profile.id id_marketing');
         $this->db->from('profile');
         $this->db->join('role', 'role.id = profile.role_id', 'left');
         $this->db->join('accounts', 'accounts.id = profile.id', 'left');
@@ -221,31 +224,32 @@ class Admin extends CI_Controller
         $this->db->like('nama', $data['keyword']);
 
         $config['total_rows'] = $this->db->count_all_results();
-        $config['per_page'] = 10;
+        $config['per_page'] = 3;
         $from = $this->uri->segment(3);
 
-        $data['siswa'] =  $this->Admin_model->getAllSiswa($config['per_page'], $from, $data['keyword']);
+        $data['marketing'] =  $this->Admin_model->getAllMarketing($config['per_page'], $from, $data['keyword']);
 
         $this->pagination->initialize($config);
 
         $this->load->view('templates/admin_header', $data);
-        $this->load->view('admin/siswa');
+        $this->load->view('admin/marketing');
         $this->load->view('templates/admin_footer');
     }
-    public function tambah_siswa()
+    public function tambah_marketing()
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
-        $data['judul'] = "Kelola Siswa";
+        $data['judul'] = "Kelola Marketing";
 
         $this->form_validation->set_rules('id', 'ID', 'required|is_unique[accounts.id]|trim', array('required' => 'ID Harus Diisi', 'is_unique' => 'ID Telah Digunakan'));
         $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
         $this->form_validation->set_rules('asal', 'Asal', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[accounts.email]', array('required' => 'Email Harus Diisi', 'valid_email' => 'Isi Email Denga Format yang Benar', 'is_unique' => 'Email Telah Digunakan'));
-        $this->form_validation->set_rules('kelas', 'Kelas', 'required|callback_check_kelas');
-        $this->form_validation->set_message('check_kelas', 'Kelas Harus Diisi');
+        $this->form_validation->set_rules('status', 'Status', 'required|callback_check_status');
+        $this->form_validation->set_message('check_status', 'Status Harus Diisi');
         $this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]|matches[password2]', array('required' => 'Password Harus Diisi', 'min_length' => 'Password Harus Lebih 8 Karakter', 'matches' => 'Password Tidak Sama Repeat Password'));
         $this->form_validation->set_rules('password2', 'Repeat Password', 'required', array('required' => 'Repeat Password Harus Diisi'));
 
@@ -254,32 +258,33 @@ class Admin extends CI_Controller
                 'id' => $this->input->post('id'),
                 'nama' => $this->input->post('nama'),
                 'asal' => $this->input->post('asal'),
+                'no_hp' => $this->input->post('no_hp'),
                 'tglahir' => $this->input->post('tglahir'),
                 'email' => $this->input->post('email')
             );
 
             $this->load->view('templates/admin_header', $data);
-            $this->load->view('admin/tambah_siswa', $data);
+            $this->load->view('admin/tambah_marketing', $data);
             $this->load->view('templates/admin_footer');
         } else {
-            $this->Admin_model->tambahSiswa();
-            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Siswa Berhasil Ditambahkan.</div>');
-            redirect('admin/siswa');
+            $this->Admin_model->tambahMarketing();
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Marketing Berhasil Ditambahkan.</div>');
+            redirect('admin/marketing');
         }
     }
-    function check_kelas($post_string)
+    function check_status($post_string)
     {
         return $post_string == '0' ? FALSE : TRUE;
     }
-    public function edit_siswa($id)
+    public function edit_marketing($id)
     {
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
-        $data['judul'] = "Kelola Guru";
+        $data['judul'] = "Kelola Marketing";
 
-        $data['detail'] = $this->Admin_model->detailSiswa($id);
-        $data['kelas_detail'] = $this->Admin_model->kelasSiswa($data['detail']['id_siswa']);
+        $data['detail'] = $this->Admin_model->detailMarketing($id);
+        $data['stat_detail'] = $this->Admin_model->statusMarketing($data['detail']['id_marketing']);
 
         if ($this->input->post('id') == $id) {
             $this->form_validation->set_rules('id', 'ID', 'required|trim', array('required' => 'ID Harus Diisi'));
@@ -292,11 +297,12 @@ class Admin extends CI_Controller
         } else {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim|is_unique[accounts.email]', array('required' => 'Email Harus Diisi', 'valid_email' => 'Isi Email Denga Format yang Benar', 'is_unique' => 'Email Telah Digunakan'));
         }
-        $this->form_validation->set_rules('kelas', 'Kelas', 'required|callback_check_kelas_edit');
-        $this->form_validation->set_message('check_kelas_edit', 'Kelas Harus Diisi');
+        $this->form_validation->set_rules('status', 'Status', 'required|callback_check_status_edit');
+        $this->form_validation->set_message('check_status_edit', 'Status Harus Diisi');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
         $this->form_validation->set_rules('asal', 'Asal', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
         $this->form_validation->set_rules('password', 'Password', 'trim|min_length[8]|matches[password2]', array('required' => 'Password Harus Diisi', 'min_length' => 'Password Harus Lebih 8 Karakter', 'matches' => 'Password Tidak Sama Repeat Password'));
         $this->form_validation->set_rules('password2', 'Repeat Password', 'trim');
@@ -304,28 +310,28 @@ class Admin extends CI_Controller
         if ($data['detail']) {
             if ($this->form_validation->run() == FALSE) {
                 $this->load->view('templates/admin_header', $data);
-                $this->load->view('admin/edit_siswa', $data);
+                $this->load->view('admin/edit_marketing', $data);
                 $this->load->view('templates/admin_footer');
             } else {
-                $this->Admin_model->editSiswa();
-                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Siswa Berhasil Diubah.</div>');
-                redirect('admin/siswa');
+                $this->Admin_model->editMarketing();
+                $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Marketing Berhasil Diubah.</div>');
+                redirect('admin/marketing');
             }
         } else {
-            redirect('admin/siswa');
+            redirect('admin/marketing');
         }
     }
-    function check_kelas_edit($post_string)
+    function check_status_edit($post_string)
     {
         return $post_string == '0' ? FALSE : TRUE;
     }
-    public function hapus_siswa($id)
+    public function hapus_marketing($id)
     {
-        $this->Admin_model->hapusDataSiswa($id);
-        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Siswa Berhasil Dihapus.</div>');
-        redirect('admin/siswa');
+        $this->Admin_model->hapusDataMarketing($id);
+        $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Marketing Berhasil Dihapus.</div>');
+        redirect('admin/marketing');
     }
-    // end of manage siswa
+    // end of manage marketing
 
     // start of manage class
     public function jadwal_kelas()
@@ -334,6 +340,8 @@ class Admin extends CI_Controller
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
         $data['mapel'] = $this->db->get('ref_mapel')->result_array();
+
+        $data['hari'] = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Ahad'];
 
         $data['judul'] = "Kelola Jadwal Kelas";
 
@@ -354,8 +362,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_message('check_hari', 'Hari Harus Diisi');
         $this->form_validation->set_rules('jam_masuk', 'Jam Masuk', 'required', array('required' => 'Jam Masuk Harus Diisi'));
         $this->form_validation->set_rules('jam_keluar', 'Jam Keluar', 'required', array('required' => 'Jam Keluar Harus Diisi'));
-        $this->form_validation->set_rules('id_guru', 'Guru', 'required|callback_check_guru');
-        $this->form_validation->set_message('check_guru', 'Guru Harus Diisi');
+        $this->form_validation->set_rules('id_mentor', 'Mentor', 'required|callback_check_mentor');
+        $this->form_validation->set_message('check_mentor', 'Mentor Harus Diisi');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/admin_header', $data);
@@ -381,8 +389,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_message('check_hari', 'Hari Harus Diisi');
         $this->form_validation->set_rules('jam_masuk', 'Jam Masuk', 'required', array('required' => 'Jam Masuk Harus Diisi'));
         $this->form_validation->set_rules('jam_keluar', 'Jam Keluar', 'required', array('required' => 'Jam Keluar Harus Diisi'));
-        $this->form_validation->set_rules('id_guru', 'Guru', 'required|callback_check_guru');
-        $this->form_validation->set_message('check_guru', 'Guru Harus Diisi');
+        $this->form_validation->set_rules('id_mentor', 'Mentor', 'required|callback_check_mentor');
+        $this->form_validation->set_message('check_mentor', 'Mentor Harus Diisi');
 
         if ($this->form_validation->run() == FALSE) {
             $data['input'] = array(
@@ -407,14 +415,14 @@ class Admin extends CI_Controller
     {
         return $post_string == '0' ? FALSE : TRUE;
     }
-    function check_guru($post_string)
+    function check_mentor($post_string)
     {
         return $post_string == '0' ? FALSE : TRUE;
     }
-    public function guruDetail()
+    public function mentorDetail()
     {
         $postData = $this->input->post('mapel');
-        $data['data'] = $this->Admin_model->guruDetail($postData);
+        $data['data'] = $this->Admin_model->mentorDetail($postData);
         $data['valC'] = $this->security->get_csrf_hash();
 
         echo json_encode($data);
@@ -430,5 +438,95 @@ class Admin extends CI_Controller
         $this->Admin_model->hapusDataKelas($nama_kls);
         $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kelas Berhasil Dihapus.</div>');
         redirect('admin/jadwal_kelas');
+    }
+    // end of manage class
+
+    // start manage santri
+    public function santri()
+    {
+        $data['csrf'] = csrf();
+        $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
+        $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
+        $data['kelas'] =  $this->Admin_model->getDetailKelas();
+
+        $data['judul'] = "Kelola Santri";
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+        $config['base_url'] = base_url() . 'admin/santri';
+
+        $this->db->select('*');
+        $this->db->from('santri');
+        $this->db->where('nama_kls !=', null);
+        $this->db->like('nama', $data['keyword']);
+        $this->db->or_like('program', $data['keyword']);
+
+        $config['total_rows'] = $this->db->count_all_results();
+        $config['per_page'] = 8;
+        $from = $this->uri->segment(3);
+
+        $data['santri'] =  $this->Admin_model->getAllSantri($config['per_page'], $from, $data['keyword']);
+        // die(print_r($data['santri']));
+
+        $this->pagination->initialize($config);
+
+        $this->form_validation->set_rules('nama_kls', 'Nama Kelas', 'required', array('required' => 'Nama Kelas Harus Diisi'));
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/admin_header', $data);
+            $this->load->view('admin/santri');
+            $this->load->view('templates/admin_footer');
+        } else {
+            $this->Admin_model->editKelasSantriBaru();
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kelas Berhasil Diubah.</div>');
+            redirect('admin/santri');
+        }
+    }
+    public function santri_baru()
+    {
+        $data['csrf'] = csrf();
+        $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
+        $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
+        $data['kelas'] =  $this->Admin_model->getDetailKelas();
+
+        $data['judul'] = "Kelola Santri";
+        $data['judul2'] = "Kelola Santri Baru";
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_userdata('keyword', $data['keyword']);
+        } else {
+            $data['keyword'] = $this->session->userdata('keyword');
+        }
+        $config['base_url'] = base_url() . 'admin/santri_baru';
+
+        $this->db->select('*');
+        $this->db->from('santri');
+        $this->db->where('nama_kls =', null);
+        $this->db->like('nama', $data['keyword']);
+        $this->db->or_like('program', $data['keyword']);
+
+        $config['total_rows'] = $this->db->count_all_results();
+        $config['per_page'] = 8;
+        $from = $this->uri->segment(3);
+
+        $data['santri'] =  $this->Admin_model->getAllSantriBaru($config['per_page'], $from, $data['keyword']);
+        // die(print_r($data['santri']));
+
+        $this->pagination->initialize($config);
+
+        $this->form_validation->set_rules('nama_kls', 'Nama Kelas', 'required', array('required' => 'Nama Kelas Harus Diisi'));
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/admin_header', $data);
+            $this->load->view('admin/santri');
+            $this->load->view('templates/admin_footer');
+        } else {
+            $this->Admin_model->editKelasSantriBaru();
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Kelas Berhasil Ditambahkan.</div>');
+            redirect('admin/santri_baru');
+        }
     }
 }

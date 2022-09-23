@@ -9,7 +9,7 @@
     </div>
     <!--End Top Nav -->
     <h3 class="text-dark my-3 h3 text-center">My Profile!</h3>
-    <div class="px-3">
+    <div class="px-3 mb-5">
         <div class="card mb-3 mx-auto h-auto col-lg-8 col-md-9 shadow">
             <div class="row g-0">
                 <div class="col-md-5 col-sm-12">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-7 col-sm-12">
                     <div class="card-body">
-                        <?= form_open_multipart('guru/edit'); ?>
+                        <?= form_open_multipart('marketing/edit'); ?>
                         <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                         <input type="hidden" name="id" value="<?= $profile['id']; ?>">
                         <div class="mb-3">
@@ -34,6 +34,11 @@
                             <label for="asal" class="form-label">Asal</label>
                             <input type="text" class="form-control" id="asal" name="asal" value="<?= $profile['asal']; ?>">
                             <?= form_error('asal', '<p class="m-0 form-text text-danger text-center">', '</p>'); ?>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_hp" class="form-label">Nomor HP</label>
+                            <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $profile['no_hp']; ?>">
+                            <?= form_error('no_hp', '<p class="m-0 form-text text-danger text-center">', '</p>'); ?>
                         </div>
                         <div class="mb-3">
                             <label for="tglahir" class="form-label">Tanggal Lahir</label>

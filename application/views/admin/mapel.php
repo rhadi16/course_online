@@ -33,7 +33,7 @@
         </div>
     </div>
     <!-- end modal tambah mapel -->
-    <div class="table-responsive">
+    <div class="table-responsive mb-5">
         <table id="mapel" class="table table-striped align-middle text-center table-bordered" style="width:100%">
             <thead>
                 <tr>
