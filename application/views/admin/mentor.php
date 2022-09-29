@@ -1,17 +1,18 @@
 <!--Container Main start-->
 <div class="container pt-3">
-    <h4 class="text-center mb-3">Daftar Mentor</h4>
+    <h4 class="mb-3 fw-bold">Daftar Mentor</h4>
     <?= $this->session->flashdata('flash'); ?>
     <div class="row justify-content-between">
         <div class="col-md-5 col-sm-12 mb-3">
-            <a href="<?= base_url('admin/tambah_mentor'); ?>" class="btn btn-primary">Tambah Mentor</a>
+            <a href="<?= base_url('admin/tambah_mentor'); ?>" class="btn btn-mapel text-white">Tambah Mentor</a>
+            <a href="<?= base_url('admin/export_excel_mentor'); ?>" class="btn btn-success excel" target="_blank"><i class="fa-solid fa-file-csv"></i></a>
         </div>
         <div class="col-md-5 col-sm-12">
             <form action="" method="post" class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Cari Data Akun" name="keyword" value="<?= $this->session->userdata('keyword'); ?>" id="search">
                 <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                 <!-- <button class="btn btn-primary" type="submit">Cari</button> -->
-                <input class="btn btn-primary" type="submit" name="submit" value="Cari" id="button">
+                <input class="btn btn-mapel text-white" type="submit" name="submit" value="Cari" id="button">
             </form>
             <?php if ($this->session->userdata('keyword') != '') { ?>
                 <form action="" method="post">
@@ -37,14 +38,19 @@
                     </div>
                     <div class="card-body text-center pb-0">
                         <h5 class="card-title fw-bold fs-6" id="nama"><?= $mn['nama']; ?></h5>
-                        <?php $mMentor = $this->Admin_model->mapelMentor($mn['id_mentor']); ?>
-                        <?php foreach ($mMentor as $mm) : ?>
+                        <?php
+                        $mMentor = $this->Admin_model->mapelMentor($mn['id_mentor']);
+                        if (!$mMentor) {
+                            echo '<span class="text-mapel-mentor text-danger">Belum Ada Mata Pelajaran</span>';
+                        }
+                        foreach ($mMentor as $mm) :
+                        ?>
                             <span class="text-mapel-mentor"><?= $mm['nama_mapel']; ?></span><br>
                         <?php endforeach; ?>
                     </div>
                     <div class="card-body d-flex justify-content-center flex-nowrap w-100">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary btn-sm my-1 mx-1" data-bs-toggle="modal" data-bs-target="#detail-mentor<?= $mn['id_mentor']; ?>">
+                        <button type="button" class="btn btn-mapel text-white btn-sm my-1 mx-1" data-bs-toggle="modal" data-bs-target="#detail-mentor<?= $mn['id_mentor']; ?>">
                             <i class="fa-solid fa-circle-info"></i>
                         </button>
                         <a href="<?= base_url('admin/edit_mentor/') . $mn['id_mentor']; ?>" class="btn btn-warning btn-sm text-light my-1 mx-1"><i class="fa-solid fa-pen-to-square"></i></a>
@@ -57,7 +63,7 @@
                     <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title mx-auto" id="exampleModalLabel">Detail Mentor</h5>
+                                <h5 class="modal-title border-start border-4 border-warning ps-2" id="exampleModalLabel"><b>Detail</b> Mentor</h5>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -88,6 +94,14 @@
                                                     <td class="text-mapel-mentor"><?= $mn['asal'] . ', ' . date_indo($mn['tglahir']); ?></td>
                                                 </tr>
                                                 <tr>
+                                                    <th scope="row" class="text-mapel-mentor">Tempat Mentoring</th>
+                                                    <?php if (isset($mn['negara'])) { ?>
+                                                        <td class="text-mapel-mentor"><?= $mn['negara'] . ', ' . $mn['provinsi'] . ', ' . $mn['kota'] . ', ' . $mn['alamat']; ?></td>
+                                                    <?php } else {
+                                                        echo '<td><span class="text-mapel-mentor text-danger">Belum Ada Lokasi Mentoring</span></td>';
+                                                    } ?>
+                                                </tr>
+                                                <tr>
                                                     <th scope="row" class="text-mapel-mentor">Mentor</th>
                                                     <td class="text-mapel-mentor"><?php foreach ($mMentor as $mm) : ?>
                                                             <i class="fa-solid fa-arrow-right"></i> <?= $mm['nama_mapel']; ?><br>
@@ -108,7 +122,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger btn-batal" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

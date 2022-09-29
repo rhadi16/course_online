@@ -37,65 +37,86 @@
                             <td class="text-mapel-santri text-break"><?= $s['no_hp']; ?></td>
                             <td class="text-mapel-santri text-break align-middle text-wrap"><?= $s['program']; ?></td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-warning text-light" data-bs-toggle="modal" data-bs-target="#edit-santri<?= $s['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" class="btn btn-sm btn-primary text-light" data-bs-toggle="modal" data-bs-target="#detail-santri<?= $s['id']; ?>"><i class="fa-solid fa-circle-info"></i></button>
+                                <a href="<?= base_url('marketing/edit_santri/') . $s['id']; ?>" class="btn btn-sm btn-warning text-light"><i class="fa-solid fa-pen-to-square"></i></a>
                             </td>
                         </tr>
                         <!-- Modal edit santri -->
-                        <div class="modal fade" id="edit-santri<?= $s['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="detail-santri<?= $s['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title mx-auto" id="exampleModalLabel">Form Edit Jadwal</h5>
+                                        <h5 class="modal-title mx-auto" id="exampleModalLabel">Detail Santri</h5>
                                     </div>
-                                    <?= form_open_multipart(''); ?>
                                     <div class="modal-body">
-                                        <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
-                                        <input type="hidden" name="id" value="<?= $s['id']; ?>">
-                                        <div class="mb-3">
-                                            <label for="nama" class="form-label">Nama Santri</label>
-                                            <input type="text" class="form-control" id="nama" name="nama" value="<?= $s['nama']; ?>">
-                                            <div class="form-text text-danger text-center"><?= form_error('nama'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="kelas" placeholder="Kelas" value="<?= $retVal = ($s['nama_kls'] == null) ? 'Belum Ada Kelas' : $s['nama_kls']; ?>" readonly>
+                                            <label for="kelas">Kelas</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="asal" class="form-label">Asal Kota</label>
-                                            <input type="text" class="form-control" id="asal" name="asal" value="<?= $s['asal']; ?>">
-                                            <div class="form-text text-danger text-center"><?= form_error('asal'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="pa" placeholder="Pembimbing Akademik" value="<?= $profile['nama']; ?>" readonly>
+                                            <label for="pa">Pembimbing Akademik</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="no_hp" class="form-label">Nomor HP</label>
-                                            <input type="text" class="form-control" id="no_hp" name="no_hp" value="<?= $s['no_hp']; ?>">
-                                            <div class="form-text text-danger text-center"><?= form_error('no_hp'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="id" placeholder="ID Santri" value="<?= $s['id']; ?>" readonly>
+                                            <label for="id">ID Santri</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="tglahir" class="form-label">Tanggal Lahir</label>
-                                            <input type="date" class="form-control" id="tglahir" name="tglahir" value="<?= $s['tglahir']; ?>">
-                                            <div class="form-text text-danger text-center"><?= form_error('tglahir'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="nama" placeholder="Nama Santri" value="<?= $s['nama']; ?>" readonly>
+                                            <label for="nama">Nama Santri</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="jkl" class="form-label">jkl</label>
-                                            <select class="form-select" aria-label="Default select example" name="jkl" id="jkl">
-                                                <option value="0">Pilih Jenis Kelamin</option>
-                                                <option <?= $retVal = ($s['jkl'] == "L") ? "selected" : ""; ?> value="L">Laki - laki</option>
-                                                <option <?= $retVal = ($s['jkl'] == "P") ? "selected" : ""; ?> value="P">Perempuan</option>
-                                            </select>
-                                            <div class="form-text text-danger"><?= form_error('jkl'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="jkl" placeholder="Jenis Kelamin" value="<?= $retVal = ($s['jkl'] == "L") ? "Laki - laki" : "Perempuan"; ?>" readonly>
+                                            <label for="jkl">Jenis Kelamin</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="program" class="form-label">program</label>
-                                            <select class="form-select" aria-label="Default select example" name="program" id="program">
-                                                <option value="0">Pilih Program</option>
-                                                <option <?= $retVal = ($s['program'] == "Online Private") ? "selected" : ""; ?> value="Online Private">Online Private</option>
-                                                <option <?= $retVal = ($s['program'] == "Online Reguler") ? "selected" : ""; ?> value="Online Reguler">Online Reguler</option>
-                                                <option <?= $retVal = ($s['program'] == "Offline Private") ? "selected" : ""; ?> value="Offline Private">Offline Private</option>
-                                            </select>
-                                            <div class="form-text text-danger"><?= form_error('program'); ?></div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="ttl" placeholder="Tempat, Tanggal Lahir" value="<?= $s['asal'] . ', ' . date_indo($s['tglahir']); ?>" readonly>
+                                            <label for="ttl">Tempat, Tanggal Lahir</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="umur" placeholder="umur" value="<?= umur($s['tglahir']); ?>" readonly>
+                                            <label for="umur">umur</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="alamat" placeholder="Alamat Santri" value="<?= $s['alamat']; ?>" readonly>
+                                            <label for="alamat">Alamat Santri</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="hafalan" placeholder="Hafalan Santri" value="<?= $s['hafalan']; ?>" readonly>
+                                            <label for="hafalan">Hafalan Santri</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="kemampuan_ngaji" placeholder="Kemampuan Mengaji" value="<?= $s['kemampuan_ngaji']; ?>" readonly>
+                                            <label for="kemampuan_ngaji">Kemampuan Mengaji</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="kemampuan_bahasa" placeholder="Kemampuan Berbahasa" value="<?= $s['kemampuan_bahasa']; ?>" readonly>
+                                            <label for="kemampuan_bahasa">Kemampuan Berbahasa</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="ustadz-dzah" placeholder="Ustadz/Ustadzah" value="<?= $s['ustadz-dzah']; ?>" readonly>
+                                            <label for="ustadz-dzah">Ustadz/Ustadzah</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="no_hp" placeholder="Nomor HP" value="<?= $s['no_hp']; ?>" readonly>
+                                            <label for="no_hp">Nomor HP</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="program" placeholder="Program Belajar" value="<?= $s['program']; ?>" readonly>
+                                            <label for="program">Program Belajar</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control rounded-4" id="wkt_bljr" placeholder="Waktu Belajar yang Diharapkan" value="<?= $s['wkt_bljr']; ?>" readonly>
+                                            <label for="wkt_bljr">Waktu Belajar yang Diharapkan</label>
+                                        </div>
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control rounded-4" id="wkt_luang" placeholder="Waktu Luang Belajar" value="<?= $s['wkt_luang']; ?>" readonly>
+                                            <label for="wkt_luang">Waktu Luang Belajar</label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Ubah</button>
                                     </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>

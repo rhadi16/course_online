@@ -2,7 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
 }
 
 body {
@@ -74,12 +75,6 @@ body {
     color: #fff;
     margin-left: -45px;
 }
-
-.my-container input {
-    border-radius: 2rem;
-    padding: 2px 20px;
-}
-
 /* .card-profile {
     width: 50%;    
 }

@@ -118,23 +118,23 @@ class Marketing extends CI_Controller
 
         $this->form_validation->set_rules('id', 'ID', 'required|is_unique[santri.id]', array('required' => 'ID Harus Diisi', 'is_unique' => 'ID Sudah Digunakan'));
         $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
-        $this->form_validation->set_rules('asal', 'Asal Kota', 'required', array('required' => 'Asal Kota Harus Diisi'));
-        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
-        $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
         $this->form_validation->set_rules('jkl', 'Jenis Kelamin', 'required|callback_check_jkl');
         $this->form_validation->set_message('check_jkl', 'Jenis Kelamin Harus Diisi');
+        $this->form_validation->set_rules('asal', 'Asal Kota', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required', array('required' => 'Alamat Harus Diisi'));
+        $this->form_validation->set_rules('hafalan', 'Hafalan Al-Qur\'an', 'required', array('required' => 'Hafalan Al-Qur\'an Harus Diisi'));
+        $this->form_validation->set_rules('kemampuan_ngaji', 'Kemampuan Mengaji', 'required|callback_check_kemampuanngaji');
+        $this->form_validation->set_message('check_kemampuanngaji', 'Kemampuan Mengaji Harus Diisi');
+        $this->form_validation->set_rules('kemampuan_bahasa', 'Kemampuan Bahasa', 'required', array('required' => 'Kemampuan Bahasa Harus Diisi'));
+        $this->form_validation->set_rules('ustadz-dzah', 'Ustadz/Ustadzah', 'required', array('required' => 'Ustadz/Ustadzah Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('program', 'Program', 'required|callback_check_program');
         $this->form_validation->set_message('check_program', 'Program Harus Diisi');
+        $this->form_validation->set_rules('wkt_bljr', 'Waktu Belajar yang Diharapkan', 'required', array('required' => 'Waktu Belajar yang Diharapkan Harus Diisi'));
+        $this->form_validation->set_rules('wkt_luang', 'Waktu Luang', 'required', array('required' => 'Waktu Luang Harus Diisi'));
 
         if ($this->form_validation->run() == FALSE) {
-            $data['input'] = array(
-                'id' => $this->input->post('id', true),
-                'nama' => $this->input->post('nama', true),
-                'asal' => $this->input->post('asal', true),
-                'no_hp' => $this->input->post('no_hp', true),
-                'tglahir' => $this->input->post('tglahir', true)
-            );
-
             $this->load->view('templates/marketing_header', $data);
             $this->load->view('marketing/tambah_santri', $data);
             $this->load->view('templates/marketing_footer');
@@ -144,8 +144,54 @@ class Marketing extends CI_Controller
             redirect('marketing/santri');
         }
     }
+    public function edit_santri($id)
+    {
+        $data['csrf'] = csrf();
+        $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
+        $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
+
+        $data['judul'] = "Kelola Santri";
+        $data['detail'] = $this->Marketing_model->DetailSantri($id);
+
+        if ($this->input->post('id') == $data['detail']['id']) {
+            $this->form_validation->set_rules('id', 'ID', 'required|trim', array('required' => 'ID Harus Diisi'));
+        } else {
+            $this->form_validation->set_rules('id', 'ID', 'required|is_unique[santri.id]|trim', array('required' => 'ID Harus Diisi', 'is_unique' => 'ID Sudah Digunakan'));
+        }
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required', array('required' => 'Nama Harus Diisi'));
+        $this->form_validation->set_rules('jkl', 'Jenis Kelamin', 'required|callback_check_jkl');
+        $this->form_validation->set_message('check_jkl', 'Jenis Kelamin Harus Diisi');
+        $this->form_validation->set_rules('asal', 'Asal Kota', 'required', array('required' => 'Asal Kota Harus Diisi'));
+        $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required', array('required' => 'Tanggal Lahir Harus Diisi'));
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required', array('required' => 'Alamat Harus Diisi'));
+        $this->form_validation->set_rules('hafalan', 'Hafalan Al-Qur\'an', 'required', array('required' => 'Hafalan Al-Qur\'an Harus Diisi'));
+        $this->form_validation->set_rules('kemampuan_ngaji', 'Kemampuan Mengaji', 'required|callback_check_kemampuanngaji');
+        $this->form_validation->set_message('check_kemampuanngaji', 'Kemampuan Mengaji Harus Diisi');
+        $this->form_validation->set_rules('kemampuan_bahasa', 'Kemampuan Bahasa', 'required', array('required' => 'Kemampuan Bahasa Harus Diisi'));
+        $this->form_validation->set_rules('ustadz-dzah', 'Ustadz/Ustadzah', 'required', array('required' => 'Ustadz/Ustadzah Harus Diisi'));
+        $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required', array('required' => 'Nomor HP Harus Diisi'));
+        $this->form_validation->set_rules('program', 'Program', 'required|callback_check_program');
+        $this->form_validation->set_message('check_program', 'Program Harus Diisi');
+        $this->form_validation->set_rules('wkt_bljr', 'Waktu Belajar yang Diharapkan', 'required', array('required' => 'Waktu Belajar yang Diharapkan Harus Diisi'));
+        $this->form_validation->set_rules('wkt_luang', 'Waktu Luang', 'required', array('required' => 'Waktu Luang Harus Diisi'));
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('templates/marketing_header', $data);
+            $this->load->view('marketing/edit_santri', $data);
+            $this->load->view('templates/marketing_footer');
+        } else {
+            $this->Marketing_model->editSantri();
+            $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Data Santri Berhasil Diubah.</div>');
+            redirect('marketing/santri');
+        }
+    }
 
     function check_jkl($post_string)
+    {
+        return $post_string == '0' ? FALSE : TRUE;
+    }
+    function check_kemampuanngaji($post_string)
     {
         return $post_string == '0' ? FALSE : TRUE;
     }

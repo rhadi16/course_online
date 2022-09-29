@@ -1,19 +1,67 @@
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
-.parent-login {
-    min-height: 150px;
-}
-
-.img-login {
-    background-size: cover;
-    background-position: center;
-}
-
 body {
-    background-color: #EC9606;
+    margin: 0 !important;
 }
-.card {
-    background: rgb(235,235,235);
-    background: linear-gradient(6deg, rgba(235,235,235,1) 0%, rgba(255,255,255,1) 100%);
+.logo-login {
+    width: 170px;
+}
+.brand-logo {
+    width: 40%;
+}
+.ket {
+    background: linear-gradient(141.16deg, #FFAD32 20.65%, #F57B36 99.44%);
+}
+.btn-login:hover {
+    background: linear-gradient(141.16deg, #ff9d0b 20.65%, #ec5904 99.44%);
+}
+.start-text {
+    font-size: 12px;
+    font-weight: 500;
+}
+.middle-text {
+    font-size: 25px;
+    font-weight: 900;
+}
+.end-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+.hadist {
+    font-size: 12px;
+}
+.text-form {
+    font-size: 13px;
+}
+.icon-input {
+    margin-top: 10px;
+    font-size: 20px;
+    margin-left: 16px;
+}
+.btn-login {
+    background-color: #F57B36;
+}
+.button p,
+.button b {
+    font-size: 12px;
+}
+.button a {
+    color: #F57B36;
+}
+.alerting .alert {
+    padding: 7px;
+}
+.alerting {
+    font-size: 14px;
+    width: 300px;
+}
+
+.sign-up-logo {
+    margin-top: -60px;
+    margin-bottom: 20px;
+}
+
+.card-parent {
+    margin-top: 100px;
 }

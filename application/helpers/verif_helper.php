@@ -88,3 +88,19 @@ function csrf()
         'hash' => $ci->security->get_csrf_hash()
     );
 }
+function umur($tglahir)
+{
+    $tanggal_lahir = date('Y-m-d', strtotime($tglahir));
+
+    $birthDate = new \DateTime($tanggal_lahir);
+    $today = new \DateTime("today");
+    if ($birthDate > $today) {
+        exit("0 tahun 0 bulan 0 hari");
+    }
+    $y = $today->diff($birthDate)->y;
+    // dd($y);
+    // $m = $today->diff($birthDate)->m;
+    // $d = $today->diff($birthDate)->d;
+    // return $y . " tahun " . $m . " bulan " . $d . " hari";
+    return $y . " Tahun";
+}

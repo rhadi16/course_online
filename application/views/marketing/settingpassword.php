@@ -8,9 +8,9 @@
         <?= $this->session->flashdata('flash'); ?>
     </div>
     <!--End Top Nav -->
-    <h3 class="text-dark p-3 h3 text-center">Setting Password Anda!</h3>
+    <h3 class="text-dark p-3 h3 text-center text-break">Setting Password Anda!</h3>
     <div class="px-3 mb-5">
-        <div class="card mb-3 mx-auto h-auto col-lg-7 col-md-9 shadow">
+        <div class="card mb-3 mx-auto h-auto col-lg-7 col-md-9 shadow overflow-hidden">
             <div class="card-body">
                 <form action="<?= base_url('marketing/settingpassword'); ?>" method="post">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />

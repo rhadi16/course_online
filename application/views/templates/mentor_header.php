@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/mentor-style.css'); ?>" />
 </head>
 
-<body>
+<body class="bg-gray-200">
     <!-- Side-Nav -->
     <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
         <ul class="nav d-flex flex-column text-white">

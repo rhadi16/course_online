@@ -31,6 +31,7 @@ class Mentor extends CI_Controller
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
+        $data['lok_int'] =  $this->Admin_model->getAllLokInt();
 
         $data['judul'] = "My Profile";
 
@@ -44,6 +45,8 @@ class Mentor extends CI_Controller
         $this->form_validation->set_rules('asal', 'Asal Kota', 'required|trim', array('required' => 'Asal Kota Harus Diisi'));
         $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required|trim', array('required' => 'Tanggal Lahir Harus Diisi'));
+        $this->form_validation->set_rules('lok_inter', 'Lokasi Mentoring', 'required|callback_check_lokint');
+        $this->form_validation->set_message('check_lokint', 'Lokasi Mentoring Harus Diisi');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/mentor_header', $data);
@@ -100,9 +103,14 @@ class Mentor extends CI_Controller
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
-        $data['kls_mentor'] = $this->db->get_where('jadwal', ['id_mentor' => $this->session->userdata('id')])->result_array();
+        $data['kls_mentor'] = $this->Mentor_model->listKls($this->session->userdata('id'));
+        if (isset($data['kls_mentor'][0]['nama_kls'])) {
+            $nama_kls = $data['kls_mentor'][0]['nama_kls'];
+        } else {
+            $nama_kls = "tidak ada";
+        }
+
         // die(print_r($data['kls_mentor']));
-        $data['list_santri'] = $this->Mentor_model->listSantriDalamKls($data['kls_mentor'][0]['nama_kls']);
 
         $data['judul'] = "Jadwal Mengajar";
 
@@ -123,5 +131,9 @@ class Mentor extends CI_Controller
         $this->Guru_model->hapusMateri($materi);
         $this->session->set_flashdata('flash', '<div class="alert alert-success" role="alert">Materi Berhasil Dihapus.</div>');
         redirect('guru/kelola_kelas');
+    }
+    function check_lokint($post_string)
+    {
+        return $post_string == '0' ? FALSE : TRUE;
     }
 }

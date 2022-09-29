@@ -56,20 +56,55 @@ class Marketing_model extends CI_model
     }
     public function listSantri()
     {
-        return $this->db->get('santri')->result_array();
+        return $this->db->get_where('santri', ['pa' => $this->session->userdata('id')])->result_array();
+    }
+    public function DetailSantri($id = '')
+    {
+        return $this->db->get_where('santri', ['id' => $id])->row_array();
     }
     public function tambahSantri()
     {
         $data_santri = array(
             'id' => $this->input->post('id', true),
             'nama' => $this->input->post('nama', true),
-            'asal' => $this->input->post('asal', true),
-            'no_hp' => $this->input->post('no_hp', true),
-            'tglahir' => $this->input->post('tglahir', true),
             'jkl' => $this->input->post('jkl', true),
-            'program' => $this->input->post('program', true)
+            'asal' => $this->input->post('asal', true),
+            'tglahir' => $this->input->post('tglahir', true),
+            'alamat' => $this->input->post('alamat', true),
+            'hafalan' => $this->input->post('hafalan', true),
+            'kemampuan_ngaji' => htmlspecialchars($this->input->post('kemampuan_ngaji', true)),
+            'kemampuan_bahasa' => $this->input->post('kemampuan_bahasa', true),
+            'ustadz-dzah' => $this->input->post('ustadz-dzah', true),
+            'no_hp' => $this->input->post('no_hp', true),
+            'program' => $this->input->post('program', true),
+            'wkt_bljr' => $this->input->post('wkt_bljr', true),
+            'wkt_luang' => $this->input->post('wkt_luang', true),
+            'pa' => $this->session->userdata('id')
         );
 
         $this->db->insert('santri', $data_santri);
+    }
+    public function editSantri()
+    {
+        $data_santri = array(
+            'id' => $this->input->post('id', true),
+            'nama' => $this->input->post('nama', true),
+            'jkl' => $this->input->post('jkl', true),
+            'asal' => $this->input->post('asal', true),
+            'tglahir' => $this->input->post('tglahir', true),
+            'alamat' => $this->input->post('alamat', true),
+            'hafalan' => $this->input->post('hafalan', true),
+            'kemampuan_ngaji' => htmlspecialchars($this->input->post('kemampuan_ngaji', true)),
+            'kemampuan_bahasa' => $this->input->post('kemampuan_bahasa', true),
+            'ustadz-dzah' => $this->input->post('ustadz-dzah', true),
+            'no_hp' => $this->input->post('no_hp', true),
+            'program' => $this->input->post('program', true),
+            'wkt_bljr' => $this->input->post('wkt_bljr', true),
+            'wkt_luang' => $this->input->post('wkt_luang', true),
+            'pa' => $this->session->userdata('id')
+        );
+
+        $this->db->where('id', $this->input->post('id_lama'));
+        $this->db->update('santri', $data_santri);
     }
 }

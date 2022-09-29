@@ -62,6 +62,15 @@ class Mentor_model extends CI_model
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('accounts');
     }
+    public function listKls($id)
+    {
+        $this->db->distinct();
+        $this->db->select('*');
+        $this->db->where('id_mentor =', $id);
+        $this->db->group_by("nama_kls");
+
+        return $this->db->get('jadwal')->result_array();
+    }
     public function jadwalMentor($nama_kls = '', $hari = '', $id_mentor = '')
     {
         $this->db->select('*, jadwal.id id_kls');

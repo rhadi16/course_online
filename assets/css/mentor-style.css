@@ -2,21 +2,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
     min-height: 100vh;
-    background-color: #fff;
 }
-
+.bg-gray-200 {
+    background-color: #f0f2f5!important;
+}
 .side-navbar {
     width: 250px;
     height: 100%;
     position: fixed;
     margin-left: -300px;
-    background-color: #100901;
+    background: linear-gradient(141.16deg, #FFAD32 20.65%, #F57B36 99.44%);
     transition: 0.5s;
+}
+
+.my-container .navbar {
+    background-color: #fff;
 }
 
 .nav-link:active,
@@ -62,9 +67,12 @@ body {
     font-size: 0.8rem;
 }
 .header-hari {
-    background-image: linear-gradient(195deg,#49a3f1,#1a73e8);
-    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgba(0,188,212,.4)!important;
+    background: linear-gradient(141.16deg, #FFAD32 20.65%, #F57B36 99.44%);
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,.14),0 7px 10px -5px rgb(245, 123, 54, .4)!important;
     margin-top: -43px;
+}
+a {
+    text-decoration: none;
 }
 /* for main section */
 .active-cont {
@@ -72,21 +80,36 @@ body {
 }
 
 #menu-btn {
-    background-color: #100901;
+    background-color: transparent;
+    color: #F57B36;
+    margin-left: -35px;
+    border: 1px solid #F57B36;
+}
+.btn-primary,
+.text-bg-success {
     color: #fff;
-    margin-left: -45px;
+    background: linear-gradient(141.16deg, #FFAD32 20.65%, #F57B36 99.44%);
+    border: transparent;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    color: #fff;
+    background: linear-gradient(141.16deg, #ffb74b 20.65%, #f59157 99.44%);
+    box-shadow: unset;
+}
+.btn-outline-warning {
+    color: #F57B36;
+    border: 1px solid #F57B36;
+}
+.btn-outline-warning:hover,
+.btn-outline-warning:focus {
+    color: #F57B36;
+    border: 1px solid #F57B36;
+    background-color: rgba(245, 123, 54, 0.3);
+    box-shadow: unset;
 }
 
-.my-container input {
-    border-radius: 2rem;
-    padding: 2px 20px;
-}
-
-/* .card-profile {
-    width: 50%;    
-}
-
-@media (max-width: 992px) { 
+/* @media (max-width: 992px) { 
     .card-profile {
         width: 60%;
     }

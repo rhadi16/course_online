@@ -3,7 +3,6 @@ function selectMentor1(id_mapels) {
 	var id_mapel = $('#id_mapel'+id_mapels).val();
 	var csrfName = $('#csrf').attr('name');
 	var csrfHash = $('#csrf').val();
-	console.log(csrfName + ' ' + csrfHash);
 	$('#detail-mentor'+id_mapels).text('');
 	$(document).ready(function() {
 		$.ajax({
@@ -70,14 +69,22 @@ function selectMentor() {
 }
 // hapus kelas
 function hapusKelas(nama, url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus Kelas " + nama,
+		html: "Ingin menghapus Kelas <b>" + nama + "</b>",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#d33',
-		cancelButtonColor: '#3085d6',
-		confirmButtonText: 'Ya'
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
@@ -86,14 +93,22 @@ function hapusKelas(nama, url) {
 }
 // hapus jadwal
 function hapusJadwal(nama, url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus Jadwal " + nama,
+		html: "Ingin menghapus Jadwal <b>" + nama + "</b>",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#d33',
-		cancelButtonColor: '#3085d6',
-		confirmButtonText: 'Ya'
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
@@ -102,14 +117,22 @@ function hapusJadwal(nama, url) {
 }
 // hapus marketing
 function hapusMarketing(nama, url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus Marketing " + nama,
+		html: "Ingin menghapus Marketing <b>" + nama + "</b>",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#d33',
-		cancelButtonColor: '#3085d6',
-		confirmButtonText: 'Ya'
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
@@ -118,14 +141,70 @@ function hapusMarketing(nama, url) {
 }
 // hapus mapel
 function hapusMapel(nama, url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin menghapus Mata Pelajaran " + nama,
+		html: "Ingin menghapus Mata Pelajaran <b>" + nama + "</b>",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#d33',
-		cancelButtonColor: '#3085d6',
-		confirmButtonText: 'Ya'
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url;
+		}
+	});
+}
+// hapus lokasi internasional
+function hapusLokInt(nama, url) {
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
+		title: 'Anda Yakin?',
+		html: "Ingin menghapus Lokasi <b>" + nama + "</b>",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = url;
+		}
+	});
+}
+// hapus santri
+function hapusSantri(nama, url) {
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
+		title: 'Anda Yakin?',
+		html: "Ingin menghapus Santri <b>" + nama + "</b>",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
@@ -135,14 +214,22 @@ function hapusMapel(nama, url) {
 
 // logout
 function logout(url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+		  confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		  cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+		},
+		buttonsStyling: false
+	  });
+
+	swalWithBootstrapButtons.fire({
 		title: "Anda Yakin?",
-		text: "Ingin Logout?",
+		html: "Ingin <b>Logout</b>?",
 		icon: "warning",
 		showCancelButton: true,
-		confirmButtonColor: "#d33",
-		cancelButtonColor: "#3085d6",
-		confirmButtonText: "Ya",
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
@@ -151,20 +238,32 @@ function logout(url) {
 }
 // hapus guru
 function hapusMentor(nama, url) {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-mapel text-white px-4 mx-1',
+		cancelButton: 'btn btn-danger btn-batal px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: 'Anda Yakin?',
-		text: "Ingin Menghapus Data Mentor " + nama,
+		html: "Ingin Menghapus Data Mentor <b>" + nama + "</b>",
 		icon: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: '#d33',
-		cancelButtonColor: '#3085d6',
-		confirmButtonText: 'Ya'
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;
 		}
 	});
 }
+// set datatable
+$(document).ready(function () {
+    $('#mapel').DataTable();
+});
 // // mark pada saat search data
 // function search(nips, namas, departs, searched) {
 // 	let nip = document.getElementById(nips).innerHTML;

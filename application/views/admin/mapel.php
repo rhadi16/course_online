@@ -5,7 +5,7 @@
             <h5 class="fw-bold fs-5">Daftar Mata Pelajaran</h5>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
-            <button type="button" class="btn btn-success float-end w-100" data-bs-toggle="modal" data-bs-target="#tambah-mapel">Tambah Mata Pelajaran</button>
+            <button type="button" class="btn btn-mapel float-end w-100 text-white" data-bs-toggle="modal" data-bs-target="#tambah-mapel">Tambah Mata Pelajaran</button>
         </div>
     </div>
     <!-- Modal tambah mapel -->
@@ -13,7 +13,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title mx-auto" id="exampleModalLabel">Form Tambah Mata Pelajaran</h5>
+                    <h5 class="modal-title border-start border-4 border-warning ps-2" id="exampleModalLabel"><b>Tambah</b> Mata Pelajaran</h5>
                 </div>
                 <form action="" method="POST">
                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
@@ -25,8 +25,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="button" class="btn btn-danger btn-batal px-4" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-mapel text-white px-4">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -37,17 +37,17 @@
         <table id="mapel" class="table table-striped align-middle text-center table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th class="text-center text-mapel-guru">No.</th>
-                    <th class="text-center text-mapel-guru">Nama Mata Pelajaran</th>
-                    <th class="text-center text-mapel-guru">Option</th>
+                    <th class="text-center text-mapel-mentor">No.</th>
+                    <th class="text-center text-mapel-mentor">Nama Mata Pelajaran</th>
+                    <th class="text-center text-mapel-mentor">Option</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1;
                 foreach ($mapel as $m) : ?>
                     <tr>
-                        <td class="text-mapel-guru"><?= $no++; ?>.</td>
-                        <td class="text-mapel-guru"><?= $m['nama_mapel']; ?></td>
+                        <td class="text-mapel-mentor"><?= $no++; ?>.</td>
+                        <td class="text-mapel-mentor"><?= $m['nama_mapel']; ?></td>
                         <td>
                             <button type="button" class="btn btn-sm btn-warning text-light" data-bs-toggle="modal" data-bs-target="#edit-mapel<?= $m['id']; ?>"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button type="button" onclick="hapusMapel('<?= $m['nama_mapel']; ?>', '<?= base_url('admin/hapusMapel/') . $m['id']; ?>')" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -58,7 +58,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title mx-auto" id="exampleModalLabel">Form Edit Mata Pelajaran</h5>
+                                    <h5 class="modal-title border-start border-4 border-warning ps-2" id="exampleModalLabel"><b>Ubah</b> Mata Pelajaran</h5>
                                 </div>
                                 <form action="<?= base_url('admin/editMapel') ?>" method="POST">
                                     <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
@@ -71,8 +71,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Ubah</button>
+                                        <button type="button" class="btn btn-danger btn-batal px-4" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-mapel text-white px-4">Ubah</button>
                                     </div>
                                 </form>
                             </div>
@@ -83,9 +83,9 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th class="text-center text-mapel-guru">No.</th>
-                    <th class="text-center text-mapel-guru">Nama Mata Pelajaran</th>
-                    <th class="text-center text-mapel-guru">Option</th>
+                    <th class="text-center text-mapel-mentor">No.</th>
+                    <th class="text-center text-mapel-mentor">Nama Mata Pelajaran</th>
+                    <th class="text-center text-mapel-mentor">Option</th>
                 </tr>
             </tfoot>
         </table>

@@ -16,4 +16,4 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/auth_style.css'); ?>">
 </head>
 
-<body>
+<body class="row w-100 h-100">

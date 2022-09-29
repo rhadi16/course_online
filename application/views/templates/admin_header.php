@@ -30,9 +30,12 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div class="h-90">
-                <a href="#" class="nav_logo">
-                    <i class="fa-solid fa-school nav_logo-icon"></i>
-                    <span class="nav_logo-name fs-4">Course</span>
+                <a href="#" class="nav_logo ps-2 mb-3">
+                    <img src="<?= base_url('assets/img-login/icon.png'); ?>" class="brand-logo" alt="...">
+                    <div>
+                        <span class="nav_logo-name fs-4 d-block">KAFFAH</span>
+                        <span class="fs-6 d-block text-white ms-2">PRIORITY</span>
+                    </div>
                 </a>
                 <div class="nav_list h-80 overflow-auto">
                     <a href="<?= base_url('admin') ?>" class="nav_link <?php if ($judul == "Home") {
@@ -41,17 +44,29 @@
                         <i class='fa-solid fa-house nav_icon'></i>
                         <span class="nav_name fs-6">Home</span>
                     </a>
+                    <a href="<?= base_url('admin/akun_baru') ?>" class="nav_link <?php if ($judul == "Kelola Akun Baru") {
+                                                                                        echo "active";
+                                                                                    } ?>">
+                        <i class="fa-solid fa-square-plus nav_icon"></i>
+                        <span class="nav_name fs-6">Kelola Akun Baru</span>
+                    </a>
                     <a href="<?= base_url('admin/mapel') ?>" class="nav_link <?php if ($judul == "Kelola Mata Pelajaran") {
                                                                                     echo "active";
                                                                                 } ?>">
                         <i class="fa-solid fa-book nav_icon"></i>
                         <span class="nav_name fs-6">Kelola Mata<br>Pelajaran</span>
                     </a>
+                    <a href="<?= base_url('admin/lokasi_internasional') ?>" class="nav_link <?php if ($judul == "Kelola Lokasi Internasional") {
+                                                                                                echo "active";
+                                                                                            } ?>">
+                        <i class="fa-solid fa-globe nav_icon"></i>
+                        <span class="nav_name fs-6">Kelola Lokasi<br>Internasional</span>
+                    </a>
                     <a href="<?= base_url('admin/jadwal_kelas') ?>" class="nav_link <?php if ($judul == "Kelola Jadwal Kelas") {
                                                                                         echo "active";
                                                                                     } ?>">
                         <i class="fa-solid fa-list nav_icon"></i>
-                        <span class="nav_name fs-6">Kelola Jadwal<br>Kelas</span>
+                        <span class="nav_name fs-6">Kelola Jadwal Kelas</span>
                     </a>
                     <a href="<?= base_url('admin/mentor') ?>" class="nav_link <?php if ($judul == "Kelola Mentor") {
                                                                                     echo "active";
@@ -71,6 +86,12 @@
                         <i class="fa-solid fa-user-plus nav_icon"></i>
                         <span class="nav_name fs-6">Kelola Santri</span>
                     </a>
+                    <!-- <a href="<?= base_url('admin/absen_santri') ?>" class="nav_link <?php if ($judul == "Absensi Santri") {
+                                                                                                echo "active";
+                                                                                            } ?>">
+                        <i class="fa-solid fa-clipboard-check nav_icon"></i>
+                        <span class="nav_name fs-6">Absensi Santri</span>
+                    </a> -->
                 </div>
             </div>
             <div class="h-10">
