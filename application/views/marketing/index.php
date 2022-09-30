@@ -1,11 +1,13 @@
 <!-- Main Wrapper -->
 <div class="my-container active-cont position-relative">
     <!-- Top Nav -->
-    <nav class="navbar top-navbar navbar-light bg-dark px-5 sticky-top">
-        <a class="btn border-0" id="menu-btn"><i class="fas fa-bars"></i></a>
+    <nav class="navbar top-navbar navbar-light px-5 sticky-top shadow">
+        <a class="btn" id="menu-btn"><i class="fas fa-bars"></i></a>
     </nav>
     <!--End Top Nav -->
-    <h3 class="text-dark p-3 h3 text-center text-break">Selamat Datang Marketing!</h3>
+    <div class="container">
+        <h3 class="text-dark text-break my-3 border-warning border-3 border-start ps-3"><b>Selamat</b> Datang <?= $profile['nama']; ?>!</h3>
+    </div>
     <div class="px-3 mb-5">
         <div class="card mb-3 mx-auto h-auto col-lg-7 col-md-9 shadow">
             <div class="row g-0">

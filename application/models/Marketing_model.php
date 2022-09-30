@@ -9,7 +9,8 @@ class Marketing_model extends CI_model
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
             'no_hp' => $this->input->post('no_hp', true),
-            'tglahir' => $this->input->post('tglahir', true)
+            'tglahir' => $this->input->post('tglahir', true),
+            'lok_inter' => $this->input->post('lok_inter', true)
         );
         // cek jika ada gambar yang akan diupload
         $upload_image = $_FILES['image']['name'];
@@ -106,5 +107,9 @@ class Marketing_model extends CI_model
 
         $this->db->where('id', $this->input->post('id_lama'));
         $this->db->update('santri', $data_santri);
+    }
+    public function getAllLokInt()
+    {
+        return $this->db->get('lokasi_internasional')->result_array();
     }
 }

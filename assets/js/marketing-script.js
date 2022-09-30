@@ -1,12 +1,20 @@
 $("#logout").on("click", function () {
-	Swal.fire({
+	const swalWithBootstrapButtons = Swal.mixin({
+	customClass: {
+		confirmButton: 'btn btn-primary px-4 mx-1',
+		cancelButton: 'btn btn-outline-warning px-4 mx-1'
+	},
+		buttonsStyling: false
+	});
+
+	swalWithBootstrapButtons.fire({
 		title: "Anda Yakin?",
-		text: "Ingin Logout?",
+		html: "Ingin <b>Logout</b>?",
 		icon: "warning",
 		showCancelButton: true,
-		confirmButtonColor: "#d33",
-		cancelButtonColor: "#3085d6",
-		confirmButtonText: "Ya",
+		confirmButtonText: 'Ya',
+  		cancelButtonText: 'Batal',
+		reverseButtons: true
 	}).then((result) => {
 		if (result.isConfirmed) {
 			window.location.href = url;

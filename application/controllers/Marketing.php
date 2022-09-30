@@ -31,6 +31,7 @@ class Marketing extends CI_Controller
         $data['csrf'] = csrf();
         $data['account'] = $this->db->get_where('accounts', ['email' => $this->session->userdata('email')])->row_array();
         $data['profile'] = $this->db->get_where('profile', ['id' => $this->session->userdata('id')])->row_array();
+        $data['lok_int'] =  $this->Marketing_model->getAllLokInt();
 
         $data['judul'] = "My Profile";
 
@@ -44,6 +45,8 @@ class Marketing extends CI_Controller
         $this->form_validation->set_rules('asal', 'Asal Kota', 'required|trim', array('required' => 'Asal Kota Harus Diisi'));
         $this->form_validation->set_rules('no_hp', 'Nomor HP', 'required|trim', array('required' => 'Nomor HP Harus Diisi'));
         $this->form_validation->set_rules('tglahir', 'Tanggal Lahir', 'required|trim', array('required' => 'Tanggal Lahir Harus Diisi'));
+        $this->form_validation->set_rules('lok_inter', 'Lokasi Mentoring', 'required|callback_check_lokint');
+        $this->form_validation->set_message('check_lokint', 'Lokasi Mentoring Harus Diisi');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('templates/marketing_header', $data);
@@ -196,6 +199,10 @@ class Marketing extends CI_Controller
         return $post_string == '0' ? FALSE : TRUE;
     }
     function check_program($post_string)
+    {
+        return $post_string == '0' ? FALSE : TRUE;
+    }
+    function check_lokint($post_string)
     {
         return $post_string == '0' ? FALSE : TRUE;
     }

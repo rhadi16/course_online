@@ -1,15 +1,15 @@
 <!-- Main Wrapper -->
 <div class="my-container active-cont position-relative">
     <!-- Top Nav -->
-    <nav class="navbar top-navbar navbar-light bg-dark px-5 sticky-top">
-        <a class="btn border-0" id="menu-btn"><i class="fas fa-bars"></i></a>
+    <nav class="navbar top-navbar navbar-light px-5 sticky-top shadow">
+        <a class="btn" id="menu-btn"><i class="fas fa-bars"></i></a>
     </nav>
     <div class="container mt-3">
         <?= $this->session->flashdata('flash'); ?>
     </div>
     <!--End Top Nav -->
     <div class="container mt-3">
-        <h4 class="text-center mb-3">Daftar Santri</h4>
+        <h3 class="text-dark text-break my-3 border-warning border-3 border-start ps-3"><b>Daftar</b> Santri</h3>
         <a href="<?= base_url('marketing/tambah_santri'); ?>" class="btn btn-primary">Tambah Santri</a>
         <div class="table-responsive mt-3 mb-5">
             <table id="list-santri" class="table table-striped align-middle text-center table-bordered" style="width:100%">
@@ -46,7 +46,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title mx-auto" id="exampleModalLabel">Detail Santri</h5>
+                                        <h5 class="modal-title border-start border-4 border-warning ps-2" id="exampleModalLabel"><b>Detail</b> Santri</h5>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-floating mb-3">
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>

@@ -9,7 +9,8 @@ class Mentor_model extends CI_model
             'nama' => $this->input->post('nama', true),
             'asal' => $this->input->post('asal', true),
             'no_hp' => $this->input->post('no_hp', true),
-            'tglahir' => $this->input->post('tglahir', true)
+            'tglahir' => $this->input->post('tglahir', true),
+            'lok_inter' => $this->input->post('lok_inter', true)
         );
         // cek jika ada gambar yang akan diupload
         $upload_image = $_FILES['image']['name'];
